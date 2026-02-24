@@ -1,0 +1,147 @@
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  min-height: 100vh;
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+/* Header Styles */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #1e293b;
+  border-bottom: 1px solid #334155;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #38bdf8;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-menu button {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.nav-menu button:hover, .nav-menu button.active {
+  color: #38bdf8;
+  background-color: #334155;
+  border-radius: 8px;
+}
+
+.search-bar input {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid #334155;
+  background-color: #0f172a;
+  color: white;
+  width: 250px;
+}
+
+/* Main Content Area */
+main {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.culture-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+/* Culture Card Styles */
+.culture-card {
+  background-color: #1e293b;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #334155;
+  transition: transform 0.2s;
+}
+
+.culture-card:hover {
+  transform: translateY(-5px);
+  border-color: #38bdf8;
+}
+
+.card-image {
+  position: relative;
+  height: 180px;
+  background-color: #334155;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.category-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.category-tag.전시 { background-color: #ef4444; }
+.category-tag.공연 { background-color: #8b5cf6; }
+.category-tag.축제 { background-color: #f59e0b; }
+
+.free-tag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: #10b981;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
+.card-content h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-content p {
+  margin: 0.5rem 0;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
