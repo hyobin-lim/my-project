@@ -1,4 +1,5 @@
-import type { CultureItem } from '../types/culture';
+import type { CultureItem } from '../../types/culture';
+import './CultureCard.css';
 
 interface Props {
   item: CultureItem;

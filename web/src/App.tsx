@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Header } from './components/Header';
 import { CultureCard } from './components/CultureCard';
 import { DetailModal } from './components/DetailModal';
+import { SUB_FILTERS } from './constants/categories';
 import type { CultureItem } from './types/culture';
 import './App.css';
 
@@ -69,16 +70,6 @@ function App() {
   const [activeSubFilter, setActiveSubFilter] = useState<string>('전체');
   const [selectedItem, setSelectedItem] = useState<CultureItem | null>(null);
 
-  // 메인 카테고리에 따른 세부 필터 (L2) 정의
-  const subFilters: Record<string, string[]> = {
-    '전체': ['전체', '인기순', '최신순', '마감임박'],
-    '공연': ['전체', '연극/뮤지컬', '클래식/오페라/무용', '국악/전통예술', '대중음악', '버스킹/거리공연', '아동/가족/마술', '기타'],
-    '영화': ['전체', '시사회/GV', '독립/예술영화', '고전/명작', '야외/마을상영', '도서관/센터', '영화제/이벤트'],
-    '전시': ['전체', '미술전시', '사진전', '체험전시', '박람회'],
-    '축제': ['전체', '지역축제', '문화행사', '전통행사', '야외축제'],
-    '교육': ['전체', '문화/예술', '인문/교양', '체험/워크숍', '기타'],
-  };
-
   const filteredData = MOCK_DATA.filter(item => {
     const categoryMatch = activeCategory === '전체' || item.category === activeCategory;
     // TODO: 추후 실제 데이터 수집 시 세부 필터링 로직 구현 필요
@@ -99,7 +90,7 @@ function App() {
         <section className="category-section">
           {/* L2: 동적 세부 필터 영역 */}
           <div className="category-filters sub-filters">
-            {subFilters[activeCategory].map(sub => (
+            {SUB_FILTERS[activeCategory].map(sub => (
               <button 
                 key={sub}
                 className={activeSubFilter === sub ? 'active' : ''}

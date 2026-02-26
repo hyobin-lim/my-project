@@ -1,4 +1,5 @@
-import type { CultureItem } from '../types/culture';
+import type { CultureItem } from '../../types/culture';
+import './DetailModal.css';
 
 interface Props {
   item: CultureItem | null;
