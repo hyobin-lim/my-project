@@ -1,0 +1,76 @@
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(18, 18, 18, 0.95); /* 반투명 효과로 고급화 */
+  backdrop-filter: blur(10px);
+  color: white;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gnb {
+  display: flex;
+  align-items: center;
+  max-width: 1280px; /* 홈 컨테이너와 동일한 넓이 */
+  margin: 0 auto;
+  height: 64px; /* 조금 더 높여서 여유 제공 */
+  padding: 0 40px;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin-right: 60px;
+  color: #ff4d4d;
+  letter-spacing: -1px;
+}
+
+.l1-list {
+  display: flex;
+  list-style: none;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.l1-list li {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.2s;
+  height: 100%;
+  border-bottom: 2px solid transparent;
+}
+
+.l1-list li:hover, .l1-list li.active {
+  color: #fff;
+  border-bottom: 2px solid #ff4d4d;
+}
+
+/* Mega Menu (Wide Layout) */
+.mega-menu {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  width: 100%;
+  background-color: #1a1a1a;
+  border-bottom: 1px solid #333;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  padding: 48px 0;
+  animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mega-menu-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 48px;
+  padding: 0 40px;
+}
