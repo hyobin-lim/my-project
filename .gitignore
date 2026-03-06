@@ -105,3 +105,8 @@ venv/
 *.bak
 *.tmp
 
+
+# AI Agents Secrets
+data/agents/.env
+data/backups/
+data/logs/*.log

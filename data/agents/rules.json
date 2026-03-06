@@ -1,0 +1,24 @@
+{
+  "council_laws": {
+    "never_omit": {
+      "forbidden_keywords": ["...", "(중략)", "(기존 내용 동일)", "unchanged"],
+      "severity": "CRITICAL",
+      "action": "HALT_AND_REPORT"
+    },
+    "stone_hunter": {
+      "forbidden_keywords": ["stone", "stnoe"],
+      "severity": "HIGH",
+      "action": "REPORT_AND_FIX"
+    },
+    "file_integrity": {
+      "rule": "Every write operation must preserve existing sections unless explicitly requested for deletion.",
+      "severity": "CRITICAL",
+      "action": "BLOCK_EXECUTION"
+    },
+    "pre_recording": {
+      "rule": "Every execution must have a corresponding entry in task_tracker or plan_updates.",
+      "severity": "HIGH",
+      "action": "WARN_PARTNER"
+    }
+  }
+}
