@@ -1,0 +1,127 @@
+.home-container {
+  padding-top: 56px;
+  width: 100%; /* 100% 활용 */
+  max-width: 1280px; /* 데스크탑 와이드 기준 */
+  margin: 0 auto;
+  padding-bottom: 60px;
+}
+
+.hero-banner {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  border: 1px solid #222;
+  padding: 80px 60px; /* 더 시원한 여백 */
+  border-radius: 0; /* 상단 배너는 꽉 차게 연출 가능 (선택 사항) */
+  margin: 0; 
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.hero-banner h1 {
+  font-size: 2.8rem; /* 데스크탑에 맞는 큰 폰트 */
+  margin-bottom: 16px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.hero-banner p {
+  color: #888;
+  font-size: 1.1rem;
+}
+
+.curation-section {
+  margin-top: 60px;
+  padding: 0 40px; /* 양옆 여백 확보 */
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  border-left: 4px solid #ff4d4d;
+  padding-left: 16px;
+}
+
+.section-header h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.view-all {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.view-all:hover {
+  color: #ff4d4d;
+}
+
+/* 수평 스크롤 레이아웃 최적화 */
+.horizontal-scroll {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  padding: 10px 0 20px 0;
+  scrollbar-width: thin;
+  scrollbar-color: #333 transparent;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+
+.culture-card {
+  flex: 0 0 260px; /* 데스크탑 카드 크기 확대 */
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  border: 1px solid #222;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.culture-card:hover {
+  transform: translateY(-10px);
+  border-color: #444;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.thumbnail-wrapper {
+  position: relative;
+  aspect-ratio: 3 / 4;
+}
+
+.card-info {
+  padding: 20px;
+}
+
+.category-label {
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: 600;
+}
+
+.item-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 10px 0;
+  line-height: 1.4;
+}
+
+.benefit-tag {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  font-weight: 700;
+}
