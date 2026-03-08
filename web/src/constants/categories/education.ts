@@ -23,8 +23,8 @@ export const educationCategory: CultureDomain = {
       children: [
         { id: 'ed-branch-2-1', name: '공예/만들기/체험', level: 3 },
         { id: 'ed-branch-2-2', name: '글쓰기/글짓기/시창작', level: 3 },
-        { id: 'ed-branch-2-2', name: '미술/드로잉/사진', level: 3 },
-        { id: 'ed-branch-2-2', name: '음악/악기/노래', level: 3 },
+        { id: 'ed-branch-2-3', name: '미술/드로잉/사진', level: 3 },
+        { id: 'ed-branch-2-4', name: '음악/악기/노래', level: 3 },
       ]
     },
     {

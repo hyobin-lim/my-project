@@ -1,0 +1,102 @@
+.council-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px; /* 우측 섹션 너비를 약간 줄임 */
+  gap: 1px;
+  height: calc(100vh - 200px);
+  background: #222;
+  border: 1px solid #333;
+  overflow: hidden;
+}
+
+.chat-section {
+  background: #0a0a0a;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-section {
+  background: #111;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #333;
+  width: 280px;
+}
+
+/* 접속자 2분할 그리드 (초정밀 조정) */
+.participants-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px; /* 간격 축소 */
+  padding: 8px; /* 패딩 축소 */
+}
+
+.participant-item-mini {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 4px 6px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.p-name-mini {
+  font-size: 0.58rem; /* 글자 크기 대폭 축소 */
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-indicator {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #00ff00;
+  box-shadow: 0 0 3px #00ff00;
+  flex-shrink: 0;
+}
+
+/* 입력 패널 */
+.input-panel {
+  height: 180px; /* 높이 약간 조절 */
+  background: #151515;
+  border-top: 1px solid #333;
+}
+
+.chat-input-wrapper {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 8px;
+}
+
+.chat-input-wrapper textarea {
+  flex: 1;
+  background: #000;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 8px;
+  font-size: 0.8rem;
+  resize: none;
+}
+
+.send-btn {
+  height: 34px;
+  background: var(--debater);
+  border: none;
+  font-weight: 900;
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.message-block {
+  padding: 8px 12px;
+  border-bottom: 1px solid #1a1a1a;
+}
