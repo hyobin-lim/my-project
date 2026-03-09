@@ -12,6 +12,51 @@
   background: #0a0a0a;
   display: flex;
   flex-direction: column;
+  height: 100%; /* 부모 높이를 꽉 채움 */
+  overflow: hidden;
+}
+
+.messages-area {
+  flex: 1; /* 남은 공간 모두 차지 */
+  overflow-y: auto; /* 세로 스크롤 활성화 */
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* 커스텀 스크롤바 디자인 */
+.messages-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages-area::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+.messages-area::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 3px;
+}
+
+.messages-area::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+.feed-header {
+  padding: 10px 15px;
+  background: #0f0f0f;
+  border-bottom: 1px solid #222;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.feed-header h3 {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: #888;
+  letter-spacing: 1px;
 }
 
 .side-section {

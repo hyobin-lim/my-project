@@ -6,12 +6,22 @@ import './MainCommandCard.css';
 const MainCommandCard: React.FC = () => {
   const [logs, setLogs] = useState<string[]>([]);
   const [input, setInput] = useState('');
+  const [isActive, setIsActive] = useState(false); // [DATA REALISM] 추가
   const logEndRef = useRef<HTMLDivElement>(null);
-  const lastSentMsgRef = useRef<string | null>(null); // 중복 방지용
+  const lastSentMsgRef = useRef<string | null>(null);
   const { socket } = useSocket();
 
   useEffect(() => {
     if (!socket) return;
+
+    // [DATA REALISM] 메인 AI 에이전트의 실제 연결 상태 감시
+    const handleStatusUpdate = (data: { active_agents: string[] }) => {
+      const activeList = data.active_agents || [];
+      setIsActive(activeList.includes('main_ai'));
+      console.log(`[MAIN STATUS] Main AI Active: ${activeList.includes('main_ai')}`);
+    };
+
+    socket.on('agent_status_update', handleStatusUpdate);
 
     socket.on('new_work_log', (data: { log: string }) => {
       // 내가 방금 보낸 것과 똑같은 메시지가 서버에서 오면 무시 (중복 방지)
@@ -53,22 +63,33 @@ const MainCommandCard: React.FC = () => {
   };
 
   return (
-    <div className="main-command-card">
+    <div className={`main-command-card ${isActive ? 'active-border' : 'inactive-border'}`}>
       <div className="card-header">
         <div className="agent-identity">
-          <div className="led led-active" style={{ backgroundColor: 'var(--main-ai)' }}></div>
-          <Terminal size={18} color="var(--main-ai)" />
-          <h3>MAIN AI COMMANDER</h3>
+          <div 
+            className={`led ${isActive ? 'led-active' : 'led-offline'}`} 
+            style={{ backgroundColor: isActive ? 'var(--main-ai)' : '#333' }}
+          ></div>
+          <Terminal size={18} color={isActive ? 'var(--main-ai)' : '#555'} />
+          <h3 style={{ color: isActive ? '#fff' : '#666' }}>MAIN AI COMMANDER</h3>
+          {!isActive && <span className="conn-warning">PROCESS DISCONNECTED</span>}
         </div>
       </div>
       
       <div className="work-log-viewer">
+        {!isActive && (
+          <div className="system-wait-overlay">
+            <div className="spinner-mini"></div>
+            <span>[429/ERROR] SYSTEM INITIALIZING...</span>
+            <p>API 할당량 대기 또는 프로세스 연결 중</p>
+          </div>
+        )}
         {logs.map((log, i) => (
           <div key={i} className="log-line">
             <span className="log-prefix">{">"}</span> {log}
           </div>
         ))}
-        {logs.length === 0 && <div className="log-placeholder">명령 대기 중...</div>}
+        {logs.length === 0 && isActive && <div className="log-placeholder">명령 대기 중...</div>}
         <div ref={logEndRef} />
       </div>
 

@@ -2,86 +2,87 @@ import os
 import datetime
 import json
 import time
+import socket
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
-import eventlet
+import threading
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'high-end-secret-key-v17'
+app.config['SECRET_KEY'] = 'supreme-nerve-v14'
 CORS(app)
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 
-# 경로 설정
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-AGENTS_DIR = os.path.join(BASE_DIR, "data", "agents")
-LOGS_DIR = os.path.join(BASE_DIR, "data", "logs")
+# --- 물리적 경로 설정 ---
+AGENTS_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.dirname(AGENTS_DIR)
+PORT_FILE_PATH = os.path.join(DATA_DIR, "port.txt")
 LIVE_CHAT_PATH = os.path.join(AGENTS_DIR, "live_chat.md")
-ACTION_LOG_PATH = os.path.join(LOGS_DIR, "guardian_action.log")
 
-def read_file_safe(path, tail=None):
-    if os.path.exists(path):
-        try:
-            with open(path, "r", encoding="utf-8", errors="ignore") as f:
-                lines = f.readlines()
-                if tail: return "".join(lines[-tail:])
-                return "".join(lines)
-        except: return ""
-    return ""
+# 실시간 에이전트 인벤토리 (SID: AgentID)
+active_agents = {}
 
-def record_chat_literal(sender, text, timestamp):
+def get_free_port(start_port=5055):
+    port = start_port
+    while True:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            try:
+                s.bind(('0.0.0.0', port))
+                return port
+            except socket.error:
+                port += 1
+
+def save_active_port(port):
     try:
-        with open(LIVE_CHAT_PATH, "a", encoding="utf-8") as f:
-            f.write(f"\n**{sender}**: {text} ({timestamp})\n")
+        with open(PORT_FILE_PATH, "w", encoding="utf-8") as f:
+            f.write(str(port))
+        print(f"[HUB] Active port {port} saved to {PORT_FILE_PATH}", flush=True)
     except: pass
-
-@app.route('/api/chat', methods=['POST'])
-def post_chat():
-    data = request.json
-    sender = data.get('sender', 'Unknown')
-    text = data.get('text', '')
-    timestamp = datetime.datetime.now().strftime("%H:%M:%S")
-    record_chat_literal(sender, text, timestamp)
-    socketio.emit('new_council_msg', {'sender': sender, 'text': text, 'timestamp': timestamp})
-    return jsonify({"status": "success"})
-
-@app.route('/api/log', methods=['POST'])
-def post_log():
-    data = request.json
-    log = data.get('log', '')
-    timestamp = datetime.datetime.now().strftime("%H:%M:%S")
-    socketio.emit('new_work_log', {'log': log, 'timestamp': timestamp})
-    return jsonify({"status": "success"})
-
-# --- Socket Events ---
 
 @socketio.on('connect')
 def handle_connect():
-    emit('sync_history', {
-        'chat': read_file_safe(LIVE_CHAT_PATH, tail=50),
-        'logs': read_file_safe(ACTION_LOG_PATH, tail=30)
-    })
+    print(f"[HUB] New session connected: {request.sid}", flush=True)
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    if request.sid in active_agents:
+        agent_id = active_agents[request.sid]
+        del active_agents[request.sid]
+        print(f"[HUB] Agent Offline: {agent_id} (SID: {request.sid})", flush=True)
+        socketio.emit('agent_status_update', {'active_agents': list(active_agents.values())})
+
+@socketio.on('register_agent')
+def handle_register(data):
+    agent_id = data.get('agent_id')
+    active_agents[request.sid] = agent_id
+    print(f"[HUB] Agent Registered: {agent_id} (SID: {request.sid})", flush=True)
+    # 현재 활성화된 모든 에이전트 목록을 대시보드에 전파
+    socketio.emit('agent_status_update', {'active_agents': list(active_agents.values())})
 
 @socketio.on('council_message')
 def handle_council(data):
-    """하단 토론창 메시지 중계"""
-    sender = data.get('sender', 'Partner')
+    sender = data.get('sender', 'Unknown')
     text = data.get('text', '')
     timestamp = datetime.datetime.now().strftime("%H:%M:%S")
-    record_chat_literal(sender, text, timestamp)
-    emit('new_council_msg', {'sender': sender, 'text': text, 'timestamp': timestamp}, broadcast=True)
+    socketio.emit('new_council_msg', {
+        'sender': sender, 
+        'text': text, 
+        'timestamp': timestamp,
+        'sid': request.sid
+    })
 
 @socketio.on('main_ai_log')
 def handle_work_log(data):
-    """상단 명령창 메시지 중계 (중요: 메인 AI가 이를 듣고 작업 시작해야 함)"""
     log = data.get('log', '')
     timestamp = datetime.datetime.now().strftime("%H:%M:%S")
-    # 파일에도 기록
-    with open(ACTION_LOG_PATH, "a", encoding="utf-8") as f:
-        f.write(f"[{timestamp}] {log}\n")
-    # 모든 클라이언트에 브로드캐스트 (에이전트들도 이를 들음)
-    emit('new_work_log', {'log': log, 'timestamp': timestamp}, broadcast=True)
+    socketio.emit('new_work_log', {'log': log, 'timestamp': timestamp})
+
+@socketio.on('nerve_kill_signal')
+def handle_kill(data):
+    socketio.emit('nerve_kill_signal', data)
 
 if __name__ == "__main__":
-    print(f"📡 [SUPREME HUB V17.5] Neural Core Active on Port 5000...")
-    socketio.run(app, port=5000, debug=False, host='0.0.0.0')
+    active_port = get_free_port(5055)
+    save_active_port(active_port)
+    print(f"🚀 [SUPREME NERVE HUB V14.1] Operating on Port {active_port}", flush=True)
+    socketio.run(app, port=active_port, debug=False, host='0.0.0.0')

@@ -11,4 +11,4 @@ def get_engine(force_local=False):
     if mode == "LOCAL" or force_local:
         return OllamaEngine(model_name=os.getenv("LOCAL_MODEL_NAME", "llama3"))
     else:
-        return GeminiEngine(model_name=os.getenv("GEMINI_MODEL_NAME", "gemini-1.5-flash"))
+        return GeminiEngine(model_name=os.getenv("GEMINI_MODEL_NAME", "models/gemini-2.0-flash"))

@@ -12,20 +12,27 @@ interface Message {
 const CouncilFeed: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState('');
+  const [activeAgents, setActiveAgents] = useState<string[]>([]); // [DATA REALISM] 추가
   const feedEndRef = useRef<HTMLDivElement>(null);
   const { socket } = useSocket();
 
   const participants = [
     { id: 'Partner', color: 'var(--partner)' },
-    { id: 'MainAI', color: 'var(--main-ai)' },
-    { id: 'Watcher', color: 'var(--watcher)' },
-    { id: 'Guardian', color: 'var(--guardian)' },
-    { id: 'Inspector', color: 'var(--inspector)' },
-    { id: 'Debater', color: 'var(--debater)' },
+    { id: 'main_ai', name: 'Main AI', color: 'var(--main-ai)' },
+    { id: 'watcher', name: 'Watcher', color: 'var(--watcher)' },
+    { id: 'guardian', name: 'Guardian', color: 'var(--guardian)' },
+    { id: 'inspector', name: 'Inspector', color: 'var(--inspector)' },
+    { id: 'debater', name: 'Debater', color: 'var(--debater)' },
   ];
 
   useEffect(() => {
     if (!socket) return;
+
+    // [DATA REALISM] 실제 활성화된 에이전트 목록 수신
+    socket.on('agent_status_update', (data: { active_agents: string[] }) => {
+      setActiveAgents(data.active_agents || []);
+      console.log(`[FEED STATUS] Active Agents: ${data.active_agents}`);
+    });
 
     socket.on('new_council_msg', (msg: Message) => {
       setMessages(prev => [...prev, msg]);
@@ -33,19 +40,18 @@ const CouncilFeed: React.FC = () => {
 
     socket.on('sync_history', (data: { chat: string }) => {
       if (data.chat) {
-        // [V19.0 고밀도 파싱] live_chat.md의 모든 형식을 수용하도록 개선
         const lines = data.chat.trim().split('\n');
         const parsed: Message[] = lines.map(line => {
-          if (!line.includes('**')) return null;
           try {
-            const senderPart = line.split('**')[1];
-            const textAndTime = line.split('**: ')[1];
-            if (senderPart && textAndTime) {
-              const text = textAndTime.substring(0, textAndTime.lastIndexOf(' ('));
-              const time = textAndTime.substring(textAndTime.lastIndexOf(' (') + 2, textAndTime.lastIndexOf(')'));
-              return { sender: senderPart, text: text || textAndTime, timestamp: time || '00:00' };
+            if (line.includes('**') && line.includes('**: ')) {
+              const parts = line.split('**: ');
+              const sender = parts[0].replace('**', '').trim();
+              const content = parts[1];
+              const text = content.substring(0, content.lastIndexOf(' (')) || content;
+              const time = content.substring(content.lastIndexOf(' (') + 2, content.lastIndexOf(')')) || '00:00';
+              return { sender, text, timestamp: time };
             }
-          } catch(e) {}
+          } catch(e) { return null; }
           return null;
         }).filter(m => m !== null) as Message[];
         setMessages(parsed);
@@ -100,12 +106,17 @@ const CouncilFeed: React.FC = () => {
         <div className="participants-panel">
           <div className="panel-header">COUNCIL MEMBERS</div>
           <div className="participants-grid">
-            {participants.map(p => (
-              <div key={p.id} className="participant-item-mini">
-                <div className="status-indicator active"></div>
-                <span className="p-name-mini" style={{ color: p.color }}>{p.id.toUpperCase()}</span>
-              </div>
-            ))}
+            {participants.map(p => {
+              const isOnline = p.id === 'Partner' || activeAgents.includes(p.id);
+              return (
+                <div key={p.id} className={`participant-item-mini ${isOnline ? 'online' : 'offline'}`}>
+                  <div className={`status-indicator ${isOnline ? 'active' : 'inactive'}`}></div>
+                  <span className="p-name-mini" style={{ color: isOnline ? p.color : '#333' }}>
+                    {isOnline ? (p.name || p.id.toUpperCase()) : '--- EMPTY ---'}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
 

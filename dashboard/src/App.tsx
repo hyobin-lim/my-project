@@ -9,9 +9,9 @@ const App: React.FC = () => {
       <header className="dashboard-header">
         <div className="system-title">
           <span className="pulse-dot"></span>
-          AI SUPREME COUNCIL COMMAND CENTER V10.0
+          AI SUPREME COUNCIL COMMAND CENTER V14.1
         </div>
-        <div className="session-info">PORT: 9999 | SESSION: 2026-03-08</div>
+        <div className="session-info">PORT: 9999 | SESSION: 2026-03-10</div>
       </header>
       
       <StatusHub />
