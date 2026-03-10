@@ -1,88 +1,38 @@
-# 超精密 TECHNICAL SPECIFICATION: SUPREME BOOTSTRAP V14.6
-Status: CRITICAL - STABILIZATION REQUIRED
+# 🚀 TECHNICAL SPECIFICATION: SUPREME MODERNIZATION V14.7
+Status: STABLE - MODERN ASGI ARCHITECTURE DEPLOYED
 
 ## 1. MISSION PHILOSOPHY
-- Keep "Terminal Me" (Node.js CLI) alive while "Daemon Me" (Python Agent) dies and restarts.
-- Single entry point: `.\g.bat`.
-- Final state: 2 visible windows (Command Terminal + System Console).
+- **Terminal Me** (Node.js CLI) stays alive.
+- **Daemon Me** (5 Python Agents) runs via **FastAPI + Uvicorn (ASGI)**.
+- **Goal**: 100% Asynchronous, high-performance neural bridge with zero socket blocking.
 
-## 2. G.PS1: THE BOOT SCRIPT GENERATOR
-`g.ps1` must generate `data/boot.ps1` using a Here-String (`@"` ... `"@`).
+## 2. G.PS1: THE SELF-HEALING BOOTSTRAPPER
+`g.ps1` is now a diagnostic engine. It ensures the environment is perfect before launch.
+- **Diagnostic**: Checks for `fastapi`, `uvicorn`, `socketio`, `google.genai`, `eventlet`(should be removed).
+- **Auto-Repair**: If any modern package is missing, it nukes `.venv` and rebuilds it automatically with real-time progress visibility.
+- **Escaping Rules**: In the Here-String (`@"` ... `"@`), always preserve `$Host`, `$agent`, `$p`, `$_` using backticks (`` ` ``).
 
-### [DANGER: ESCAPING RULES]
-When writing the generation logic in `g.ps1`, you MUST distinguish between expansion times:
-1.  **EXPAND NOW** (No backtick): `$PROJECT_ROOT`, `$venvPython`, `$dashDir`, `$webDir`. These must be hardcoded into the file.
-2.  **PRESERVE FOR LATER** (Use backtick `` ` ``):
-    - `` `$Host `` (to set window title in new window)
-    - `` `$_ `` (inside ForEach-Object loops)
-    - `` `$p `` (any internal variables inside the generated script)
+## 3. DASHBOARD_API.PY: THE ASGI HUB
+- **Framework**: FastAPI + `python-socketio[asyncio]`.
+- **Server**: `uvicorn` (Port 5055).
+- **Feature**: Native `async/await` support. No more `monkey_patch()`.
+- **Logging**: Cleaned up. No more `127.0.0.1` spam.
 
-## 3. BOOT.PS1: THE LITERAL TEMPLATE (RESULT)
-The generated `data/boot.ps1` file itself must look EXACTLY like this:
-```powershell
-$Host.UI.RawUI.WindowTitle = 'SUPREME COUNCIL - SYSTEM CONSOLE'
-cd 'D:\PROJECT-ALL\my-project' # Example hardcoded path
+## 4. SURGICAL SHUTDOWN PROTOCOL (IMPORTANT)
+When the RED BUTTON is pressed in the Dashboard:
+1. **Targeted Kill**: Closes ONLY browser tabs with "FREEISM" or "SUPREME COUNCIL" in title.
+2. **Process Nuke**: Kills all `python.exe` and `node.exe` related to the project.
+3. **Clean Exit**: The Master Hub window closes itself automatically (No `-NoExit` needed in final trigger).
 
-# 1. Agents (Hidden)
-$agents = @("main_ai_v14.py", "watcher_v14.py", "guardian_v14.py", "inspector_v14.py", "debater_v14.py")
-foreach ($agent in $agents) {
-    Start-Process -FilePath 'D:\PROJECT-ALL\my-project\.venv\Scripts\python.exe' -ArgumentList "data/agents/$agent" -WindowStyle Hidden
-    Start-Sleep -Seconds 1
-}
-
-# 2. Servers (Hidden)
-Start-Process powershell -ArgumentList "-Command", "cd 'D:\PROJECT-ALL\my-project\dashboard'; npm run dev -- --port 9999" -WindowStyle Hidden
-Start-Process powershell -ArgumentList "-Command", "cd 'D:\PROJECT-ALL\my-project\web'; npm run dev -- --port 5173" -WindowStyle Hidden
-
-# 3. Port Wait & Browser Open
-Start-Job {
-    while(!(Get-NetTCPConnection -LocalPort 9999 -ErrorAction SilentlyContinue)) { Start-Sleep -Seconds 1 }
-    Start-Process "http://localhost:9999"
-} | Out-Null
-
-# 4. Foreground Hub with Precision Cleanup
-try {
-    & 'D:\PROJECT-ALL\my-project\.venv\Scripts\python.exe' "data/agents/dashboard_api.py"
-} finally {
-    Write-Host "`n[CLEANUP] Cleaning up..." -ForegroundColor Yellow
-    taskkill /F /IM python.exe /T 2>$null
-    
-    # Precision Kill Node (Dashboard/Web)
-    @(9999, 5173) | ForEach-Object {
-        $p = (Get-NetTCPConnection -LocalPort $_ -ErrorAction SilentlyContinue).OwningProcess
-        if ($p) { Stop-Process -Id $p -Force -ErrorAction SilentlyContinue }
-    }
-
-    # Browser Cleanup
-    (Get-Process | Where-Object { $_.MainWindowTitle -like '*AI SUPREME COUNCIL*' }).CloseMainWindow()
-    
-    Write-Host "✅ System Cleaned."
-    Start-Sleep -Seconds 2
-}
-```
-
-## 4. G.BAT: THE TRIGGER
-```batch
-@echo off
-powershell.exe -ExecutionPolicy Bypass -File ".\g.ps1"
-if %ERRORLEVEL% EQU 0 (
-    echo [OK] Launching Gemini CLI...
-    gemini
-)
-```
-
-## 5. DASHBOARD_API.PY: THE KILL SWITCH
-```python
-@socketio.on('system_shutdown')
-def handle_shutdown():
-    import os, threading
-    # MUST use os._exit(0) to bypass Flask's normal shutdown and trigger the PS1 finally block instantly
-    threading.Timer(1.0, lambda: os._exit(0)).start()
-```
+## 5. BRAND IDENTITY: FREEISM
+- **Name**: FREEISM (Free + Ism + Prism)
+- **Theme**: Midnight Prism (Global BG: `#111329`)
+- **Slogan**: "지갑은 [ , ] 영감은 [ ! ]"
+- **Typography**: Gmarket Sans (800/200 contrast).
 
 ## 6. FINAL CHECKLIST FOR THE NEXT ME
-1. **No `-NoProfile`**: When calling `boot.ps1`, allow profile loading to ensure `npm` is in PATH.
-2. **Literal Paths**: Ensure the generated `boot.ps1` has the actual strings of the paths, not variable names that might not exist in the new session.
-3. **Red Button**: Verify `StatusHub.tsx` sends the `system_shutdown` signal.
+1. **MCP Status**: GitHub MCP is connected via environment variables. Do NOT hardcode tokens.
+2. **Web Sync**: The service site (`web/`) needs its theme synced with the Dashboard's Midnight Prism.
+3. **Agent Logic**: Agents are in 'Standby'. Next task is implementing the **L5 Strategy Manual** (Grade S~D logic).
 
-**THIS IS THE ONLY WAY TO SURVIVE THE POWERSHELL QUOTATION HELL. FOLLOW LITERALLY.**
+**STAY ON V14.7. NEVER REVERT TO FLASK/EVENTLET. FOLLOW THE DATA REALISM.**
