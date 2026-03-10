@@ -1,0 +1,149 @@
+.council-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 1px;
+  height: calc(100vh - 200px);
+  background: #222;
+  border: 1px solid #333;
+  overflow: hidden;
+}
+
+.chat-section {
+  background: #0a0a0a;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.messages-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* 커스텀 스크롤바 디자인 - 전역 통일 */
+.messages-area::-webkit-scrollbar,
+.work-log-viewer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages-area::-webkit-scrollbar-track,
+.work-log-viewer::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+.messages-area::-webkit-scrollbar-thumb,
+.work-log-viewer::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 3px;
+}
+
+.messages-area::-webkit-scrollbar-thumb:hover,
+.work-log-viewer::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+.feed-header {
+  padding: 10px 15px;
+  background: #0f0f0f;
+  border-bottom: 1px solid #222;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.feed-header h3 {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: #888;
+  letter-spacing: 1px;
+}
+
+.side-section {
+  background: #111;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #333;
+  width: 280px;
+}
+
+.participants-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 8px;
+}
+
+.participant-item-mini {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 4px 6px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.p-name-mini {
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-indicator {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #00ff00;
+  box-shadow: 0 0 3px #00ff00;
+  flex-shrink: 0;
+}
+
+.input-panel {
+  height: 180px;
+  background: #151515;
+  border-top: 1px solid #333;
+}
+
+.chat-input-wrapper {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 8px;
+}
+
+.chat-input-wrapper textarea {
+  flex: 1;
+  background: #000;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 8px;
+  font-size: 0.8rem;
+  resize: none;
+}
+
+.send-btn {
+  height: 34px;
+  background: var(--debater);
+  border: none;
+  font-weight: 900;
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.message-block {
+  padding: 8px 12px;
+  border-bottom: 1px solid #1a1a1a;
+}

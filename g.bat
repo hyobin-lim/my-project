@@ -1,11 +1,22 @@
 @echo off
-echo [SYSTEM] Starting Intelligence Council Agents...
-:: 1. 가디언 배경 실행 (이미 실행 중이면 건너뜀)
-tasklist /FI "WINDOWTITLE eq GUARDIAN_AI" | find /i "python.exe" > nul
-if errorlevel 1 (
-    start "GUARDIAN_AI" /min .\.venv\Scripts\python data/agents/guardian.py
-)
+:: g.bat (AI Universal Bridge V8.7)
+:: -----------------------------------------------------------
+:: -NoProfile을 제거하여 시스템 경로(npm 등)를 정상적으로 인식하게 합니다.
+:: -----------------------------------------------------------
 
-echo [SYSTEM] Entering Gemini CLI Session...
-:: 2. Gemini CLI 실행
-gemini
+set "PROJECT_ROOT=%~dp0"
+cd /d "%PROJECT_ROOT%"
+
+:: PowerShell V8.7 통합 스크립트 실행
+powershell.exe -ExecutionPolicy Bypass -File ".\g.ps1"
+
+if %ERRORLEVEL% EQU 0 (
+    echo.
+    echo [OK] Ecosystem is warming up... Starting Gemini CLI.
+    echo.
+    gemini
+) else (
+    echo.
+    echo [!! ERROR] AI Ecosystem failed to start with Error Code: %ERRORLEVEL%
+    pause
+)

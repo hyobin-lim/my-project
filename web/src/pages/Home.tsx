@@ -58,8 +58,21 @@ const Home: React.FC = () => {
   return (
     <main className="home-container">
       <div className="hero-banner">
-        <h1>오늘의 무료 혜택을 놓치지 마세요</h1>
-        <p>대한민국 No.1 무료 문화 내비게이터</p>
+        <div className="hero-slogan-box">
+          <span className="hero-text">지갑은</span>
+          <div className="symbol-group">
+            <span className="bracket">[</span>
+            <span className="symbol comma">,</span>
+            <span className="bracket">]</span>
+          </div>
+          <span className="hero-text gap">영감은</span>
+          <div className="symbol-group">
+            <span className="bracket">[</span>
+            <span className="symbol exclamation">!</span>
+            <span className="bracket">]</span>
+          </div>
+        </div>
+        <p className="hero-sub">무료 문화 예술의 가치를 굴절시켜 연결하는 프리즘, FREEISM</p>
       </div>
       
       {renderSection('🔥 지금 가장 핫한 S급 기회', MOCK_DATA.popular)}

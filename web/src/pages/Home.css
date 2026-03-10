@@ -1,34 +1,94 @@
 .home-container {
-  padding-top: 56px;
-  width: 100%; /* 100% 활용 */
-  max-width: 1280px; /* 데스크탑 와이드 기준 */
+  padding-top: 64px; /* 헤더 높이(64px)와 일치 */
+  width: 100%;
+  max-width: 1280px;
   margin: 0 auto;
   padding-bottom: 60px;
 }
 
 .hero-banner {
-  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-  border: 1px solid #222;
-  padding: 80px 60px; /* 더 시원한 여백 */
-  border-radius: 0; /* 상단 배너는 꽉 차게 연출 가능 (선택 사항) */
+  background: #f0f2ff; /* Refined White - Blue Tinted White */
+  border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+  padding: 80px 40px;
   margin: 0; 
-  text-align: left;
+  border-radius: 0; 
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 300px;
+  align-items: center;
+  min-height: 280px;
+  font-family: 'GmarketSans', sans-serif;
+  box-shadow: inset 0 0 50px rgba(139, 92, 246, 0.05); /* 은은한 보랏빛 내부 광택 */
 }
 
-.hero-banner h1 {
-  font-size: 2.8rem; /* 데스크탑에 맞는 큰 폰트 */
-  margin-bottom: 16px;
+.hero-slogan-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  overflow: visible;
+}
+
+.hero-slogan-box .hero-text {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #121212; /* 다크 차콜로 변경 */
+  letter-spacing: -0.05em;
+}
+
+.hero-slogan-box .hero-text.gap {
+  margin-left: 20px;
+}
+
+.symbol-group {
+  display: flex;
+  align-items: center;
+  height: auto;
+  position: relative;
+  overflow: visible;
+}
+
+.symbol-group .bracket {
+  font-size: 2.8rem;
+  font-weight: 200;
+  color: rgba(139, 92, 246, 0.5); /* 화이트 배경에 맞춰 채도 조절 */
+  line-height: 1;
+}
+
+.symbol-group .symbol {
+  font-weight: 700;
+  background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.symbol-group .symbol.comma {
+  font-size: 3.5rem;
+  position: relative;
+  top: -8px;
+  display: inline-block;
+  padding: 20px;
+  margin: -20px 0;
+  filter: drop-shadow(0 4px 10px rgba(139, 92, 246, 0.2)); /* 부드러운 그림자 */
+}
+
+.symbol-group .symbol.exclamation {
+  font-size: 2.2rem;
   font-weight: 900;
-  letter-spacing: -1px;
+  position: relative;
+  top: -1px;
+  display: inline-block;
+  filter: drop-shadow(0 4px 10px rgba(139, 92, 246, 0.2));
 }
 
-.hero-banner p {
-  color: #888;
-  font-size: 1.1rem;
+.hero-sub {
+  color: #666; /* 차분한 그레이 */
+  font-size: 1.15rem;
+  letter-spacing: 0.05em;
+  font-weight: 400;
 }
 
 .curation-section {

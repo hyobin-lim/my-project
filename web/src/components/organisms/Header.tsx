@@ -10,7 +10,10 @@ const Header: React.FC = () => {
   return (
     <header className="main-header" onMouseLeave={() => { setActiveL1(null); setActiveL3(null); }}>
       <nav className="gnb">
-        <div className="logo">FREE NAVI</div>
+        <div className="logo">
+          <span className="logo-free">FREE</span>
+          <span className="logo-ism">ISM</span>
+        </div>
         <ul className="l1-list">
           {ALL_CATEGORIES.map((domain) => (
             <li 

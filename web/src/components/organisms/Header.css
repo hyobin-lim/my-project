@@ -1,13 +1,16 @@
+@import url('https://webfontworld.github.io/gmarket/GmarketSans.css');
+
 .main-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(18, 18, 18, 0.95); /* 반투명 효과로 고급화 */
-  backdrop-filter: blur(10px);
+  background-color: rgba(17, 19, 41, 0.85); /* Adjusted Deep Indigo with transparency */
+  backdrop-filter: blur(15px);
   color: white;
   z-index: 1000;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.1); /* Subtle violet border */
+  font-family: 'GmarketSans', sans-serif;
 }
 
 .gnb {
@@ -20,11 +23,27 @@
 }
 
 .logo {
-  font-size: 1.4rem;
-  font-weight: 900;
-  margin-right: 60px;
-  color: #ff4d4d;
-  letter-spacing: -1px;
+  font-size: 2.1rem; /* 1.6rem -> 2.1rem으로 대폭 강화 */
+  margin-right: 80px;
+  letter-spacing: -1.5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.logo-free {
+  font-weight: 800; /* 더 굵게 (Extra Bold) */
+  background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 5px rgba(139, 92, 246, 0.2));
+}
+
+.logo-ism {
+  font-weight: 200; /* 더 가늘게 (Extra Light) */
+  color: rgba(255, 255, 255, 0.95);
+  margin-left: 2px;
 }
 
 .l1-list {

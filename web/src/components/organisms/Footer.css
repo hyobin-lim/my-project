@@ -1,0 +1,70 @@
+.main-footer {
+  padding: 40px 0;
+  border-top: 1px solid rgba(139, 92, 246, 0.1);
+  background-color: #111329; /* Adjusted Deep Indigo */
+  text-align: center;
+  color: #555;
+  font-family: 'GmarketSans', sans-serif;
+}
+
+.footer-copyright {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.footer-copyright .text {
+  letter-spacing: -0.02em;
+}
+
+.footer-copyright .gap {
+  margin-left: 12px;
+}
+
+/* 브래킷 디자인 */
+.symbol-bracket {
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: 300;
+  margin: 0 2px;
+}
+
+/* 기호 디자인 및 스케일링 */
+.symbol {
+  color: #ffd700; /* 금색 포인트 컬러 */
+  font-weight: 700;
+  display: inline-block;
+  line-height: 1;
+}
+
+.symbol.comma {
+  font-size: 2.2rem; /* 쉼표 200% 이상 확대 */
+  transform: translateY(-4px); /* 대괄호 중앙 정렬 */
+  margin: 0 2px;
+}
+
+.symbol.exclamation {
+  font-size: 1.4rem; /* 느낌표는 대괄호 높이에 맞춰 적절히 확대 */
+  margin: 0 1px;
+}
+
+.footer-credits {
+  font-size: 0.85rem;
+  color: #555;
+  letter-spacing: 0.05em;
+}
+
+/* 반응형 모바일 고려 */
+@media (max-width: 600px) {
+  .footer-copyright {
+    font-size: 1rem;
+    gap: 4px;
+  }
+  .symbol.comma {
+    font-size: 1.8rem;
+  }
+}

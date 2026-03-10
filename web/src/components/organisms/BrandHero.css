@@ -1,0 +1,125 @@
+@import url('https://webfontworld.github.io/gmarket/GmarketSans.css');
+
+.brand-hero {
+  padding: 120px 0 80px 0; /* 세련된 여백 확보 */
+  background: radial-gradient(circle at center, #1e1b4b 0%, #000000 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: 'GmarketSans', sans-serif;
+}
+
+.brand-hero-content {
+  text-align: center;
+  max-width: 1200px;
+}
+
+/* 브랜드 명칭: 하이엔드 로고 사이즈 */
+.brand-identity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+  font-size: 3.8rem; /* 6rem -> 3.8rem으로 세련된 축소 */
+  letter-spacing: -2px;
+}
+
+.brand-free {
+  font-weight: 800;
+  background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.3));
+}
+
+.brand-ism {
+  font-weight: 200;
+  color: rgba(255, 255, 255, 0.85);
+  margin-left: 2px;
+}
+
+/* 히어로 슬로건: 신조(Creed) 사이즈 */
+.hero-slogan {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-text {
+  font-size: 2.2rem; /* 3.5rem -> 2.2rem으로 현실적 확대 */
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.05em;
+}
+
+.hero-text.gap {
+  margin-left: 30px;
+}
+
+.hero-symbol-group {
+  display: flex;
+  align-items: center;
+}
+
+.hero-bracket {
+  font-size: 3.5rem; /* 6rem -> 3.5rem */
+  font-weight: 200;
+  color: rgba(139, 92, 246, 0.25);
+}
+
+.hero-symbol-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+}
+
+.hero-symbol {
+  font-weight: 900;
+  background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-symbol.comma {
+  font-size: 4.8rem; /* 10rem -> 4.8rem (약 2배 스케일링) */
+  margin-top: -16px; /* 4.8rem에 최적화된 수직 중앙 정렬 */
+  transform: translateX(2px);
+}
+
+.hero-symbol.exclamation {
+  font-size: 3.2rem;
+  transform: translateY(-2px);
+}
+
+.hero-divider {
+  width: 60px;
+  height: 1.5px;
+  background: linear-gradient(to right, transparent, rgba(139, 92, 246, 0.3), transparent);
+  margin: 40px auto;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.15em;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .hero-slogan { flex-direction: column; gap: 8px; }
+  .hero-text.gap { margin-left: 0; margin-top: 16px; }
+  .brand-identity { font-size: 2.5rem; }
+  .hero-text { font-size: 1.6rem; }
+  .hero-bracket { font-size: 2.5rem; }
+  .hero-symbol.comma { font-size: 4rem; margin-top: -12px; }
+}
