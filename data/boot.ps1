@@ -6,25 +6,55 @@ Start-Process powershell -ArgumentList "-NoProfile", "-NoExit", "-Command", "$Ho
 Start-Process powershell -ArgumentList "-NoProfile", "-NoExit", "-Command", "$Host.UI.RawUI.WindowTitle = 'SERVER: WEB SERVICE (5173)'; cd 'D:\PROJECT-ALL\my-project\web'; npm run dev -- --port 5173" -WindowStyle Hidden
 
 Write-Host "--- [STAGE 2] STARTING AI AGENTS ---" -ForegroundColor Green
-$agents = @("main_ai_v14.py", "watcher_v14.py", "guardian_v14.py", "inspector_v14.py", "debater_v14.py")
+$agents = @("liaison_v15.py", "planner_v15.py", "watcher_v15.py", "safety_guard_v15.py", "inspector_v15.py", "terminal_nerve.py")
 foreach ($agent in $agents) {
     Write-Host "Launching Agent: $agent" -ForegroundColor Cyan
-    Start-Process -FilePath 'D:\PROJECT-ALL\my-project\.venv\Scripts\python.exe' -ArgumentList "data/agents/$agent" -WorkingDirectory 'D:\PROJECT-ALL\my-project' -WindowStyle Hidden
+    # 議곗쑉?먯? ?곕????좉꼍留앹? ?ㅼ떆媛?媛먯떆瑜??꾪빐 李쎌쓣 ?꾩?
+    if ($agent -eq "liaison_v15.py" -or $agent -eq "terminal_nerve.py") {
+        Start-Process -FilePath 'D:\PROJECT-ALL\my-project\.venv\Scripts\python.exe' -ArgumentList "data/agents/$agent" -WorkingDirectory 'D:\PROJECT-ALL\my-project' -WindowStyle Normal
+    } else {
+        Start-Process -FilePath 'D:\PROJECT-ALL\my-project\.venv\Scripts\python.exe' -ArgumentList "data/agents/$agent" -WorkingDirectory 'D:\PROJECT-ALL\my-project' -WindowStyle Hidden
+    }
     Start-Sleep -Seconds 1
 }
 
-Write-Host "--- [STAGE 3] HUB ACTIVATION (EVENTLET) ---" -ForegroundColor Green
+Write-Host "--- [STAGE 3] HUB ACTIVATION (FASTAPI-ASGI) ---" -ForegroundColor Green
 try {
     & 'D:\PROJECT-ALL\my-project\.venv\Scripts\python.exe' "data/agents/dashboard_api.py"
+} catch {
+    Write-Host "
+[!] CRITICAL ERROR in Nerve Hub: $($_.Exception.Message)" -ForegroundColor Red
+    Pause
 } finally {
     Write-Host "
-[!] SHUTDOWN DETECTED. Cleaning all systems..." -ForegroundColor Red
-    taskkill /F /IM python.exe /T 2>$null
-    @(9999, 5173) | ForEach-Object {
-        $p = (Get-NetTCPConnection -LocalPort $_ -ErrorAction SilentlyContinue).OwningProcess
-        if ($p) { Stop-Process -Id $p -Force -ErrorAction SilentlyContinue }
+[!] SHUTDOWN SIGNAL RECEIVED. Surgical cleanup in progress..." -ForegroundColor Red
+    
+    # 1. ?꾨줈?앺듃 愿??釉뚮씪?곗? ??쭔 ?뺣? 醫낅즺
+    Get-Process | Where-Object { $_.MainWindowTitle -like '*FREEISM*' -or $_.MainWindowTitle -like '*SUPREME COUNCIL*' } | ForEach-Object {
+        Write-Host "Closing Project Tab: $($_.MainWindowTitle)" -ForegroundColor Gray
+        $_.CloseMainWindow() | Out-Null
     }
-    Write-Host "??All systems offline. Closing Master Hub in 2s..." -ForegroundColor Green
-    Start-Sleep -Seconds 2
+
+    # 2. ?꾨줈?앺듃 ?꾩슜 ?뚯씠???먯씠?꾪듃 ?뺣? ?ъ궡 (Surgical Kill)
+    # ?쒖뒪?쒖쓽 ?ㅻⅨ ?뚯씠?ъ? 嫄대뱶由ъ? ?딄퀬, ???꾨줈?앺듃 ?대뜑 ?댁뿉???ㅽ뻾??寃껊쭔 ?≪쓬
+    Write-Host "Hunting background agents in 'D:\PROJECT-ALL\my-project'..." -ForegroundColor Yellow
+    Get-CimInstance Win32_Process | Where-Object { 
+        $_.Name -eq "python.exe" -and ($_.CommandLine -like "*D:\PROJECT-ALL\my-project*" -or $_.ExecutablePath -like "*D:\PROJECT-ALL\my-project*")
+    } | ForEach-Object {
+        Write-Host "Terminating Agent PID: $($_.ProcessId)" -ForegroundColor Gray
+        Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue
+    }
+    
+    # 3. ?ы듃 媛뺤젣 ?댁젣 (9999: Dashboard, 5173: Web, 5055: Hub)
+    @(9999, 5173, 5055) | ForEach-Object {
+        $p = (Get-NetTCPConnection -LocalPort $_ -ErrorAction SilentlyContinue).OwningProcess
+        if ($p) { 
+            Write-Host "Releasing Port $_ (PID: $p)..." -ForegroundColor Gray
+            Stop-Process -Id $p -Force -ErrorAction SilentlyContinue 
+        }
+    }
+
+    Write-Host "??System fully offline. Closing this console..." -ForegroundColor Green
+    Start-Sleep -Seconds 1
     exit
 }

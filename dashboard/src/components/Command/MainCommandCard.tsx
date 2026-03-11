@@ -15,32 +15,10 @@ const MainCommandCard: React.FC = () => {
   useEffect(() => {
     if (!socket) return;
 
-    // [DATA REALISM] 모든 에이전트의 접속 상태를 실시간 감시하고 메시지 생성
+    // [DATA REALISM] 모든 에이전트의 접속 상태를 실시간 감시하여 LED 제어
     const handleStatusUpdate = (data: { active_agents: string[] }) => {
       const activeList = data.active_agents || [];
       setIsActive(activeList.includes('main_ai'));
-      
-      // [SYNC FIX] 이미 들어와 있는 에이전트들에 대한 환영 메시지가 없다면 강제로 추가
-      const agentNames: Record<string, string> = {
-        'main_ai': 'The Main AI',
-        'watcher': 'The Watcher',
-        'guardian': 'The Guardian',
-        'inspector': 'The Inspector',
-        'debater': 'The Debater'
-      };
-
-      const newLogs: string[] = [];
-      activeList.forEach(agentId => {
-        if (!processedAgentsRef.current.has(agentId)) {
-          const name = agentNames[agentId] || agentId;
-          newLogs.push(`⚡ ${name} 에이전트가 사령부에 접속되었습니다. (Standby)`);
-          processedAgentsRef.current.add(agentId);
-        }
-      });
-
-      if (newLogs.length > 0) {
-        setLogs(prev => [...prev, ...newLogs].slice(-100));
-      }
     };
 
     socket.on('agent_status_update', handleStatusUpdate);
@@ -95,7 +73,7 @@ const MainCommandCard: React.FC = () => {
             style={{ backgroundColor: isActive ? 'var(--main-ai)' : '#333' }}
           ></div>
           <Terminal size={18} color={isActive ? 'var(--main-ai)' : '#555'} />
-          <h3 style={{ color: isActive ? '#fff' : '#666' }}>MAIN AI COMMANDER</h3>
+          <h3 style={{ color: isActive ? '#fff' : '#666' }}>STRATEGIC LIAISON (조율자)</h3>
           {!isActive && <span className="conn-warning">PROCESS DISCONNECTED</span>}
         </div>
       </div>

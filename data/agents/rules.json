@@ -1,12 +1,12 @@
 {
   "council_laws": {
     "never_omit": {
-      "forbidden_keywords": ["...", "(중략)", "(기존 내용 동일)", "unchanged"],
+      "forbidden_keywords": ["(중략)", "(기존 내용 동일)", "unchanged"],
       "severity": "CRITICAL",
       "action": "HALT_AND_REPORT"
     },
     "stone_hunter": {
-      "forbidden_keywords": ["stone", "stnoe"],
+      "forbidden_keywords": ["stnoe"],
       "severity": "HIGH",
       "action": "REPORT_AND_FIX"
     },

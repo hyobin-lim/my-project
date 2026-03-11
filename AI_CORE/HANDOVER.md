@@ -1,38 +1,34 @@
-# 🚀 TECHNICAL SPECIFICATION: SUPREME MODERNIZATION V14.7
-Status: STABLE - MODERN ASGI ARCHITECTURE DEPLOYED
+# 📡 SUPREME STRATEGIC LIAISON HANDOVER (V18.5)
+> **FOR: THE STRATEGIC COMMANDER (TERMINAL 2)**
+> **FROM: THE EXECUTION COMMANDER (TERMINAL 1)**
 
-## 1. MISSION PHILOSOPHY
-- **Terminal Me** (Node.js CLI) stays alive.
-- **Daemon Me** (5 Python Agents) runs via **FastAPI + Uvicorn (ASGI)**.
-- **Goal**: 100% Asynchronous, high-performance neural bridge with zero socket blocking.
+## 🏛️ SYSTEM ARCHITECTURE & NEURAL LINK
+- **Hub**: FastAPI + Async Socket.IO (Port 5055, see `data/port.txt`)
+- **Neural Bridge**: `dashboard_api.py` acts as the pure nerve center.
+- **Agent Inventory (The Elite 4)**:
+    - `Planner (v15)`: Strategic validation of blueprints.
+    - `Watcher (v15)`: Real-time context & brand alignment.
+    - `Safety Guard (v15)`: Zero-tolerance for typos/omissions.
+    - `Inspector (v15)`: Final QA & logic verification.
 
-## 2. G.PS1: THE SELF-HEALING BOOTSTRAPPER
-`g.ps1` is now a diagnostic engine. It ensures the environment is perfect before launch.
-- **Diagnostic**: Checks for `fastapi`, `uvicorn`, `socketio`, `google.genai`, `eventlet`(should be removed).
-- **Auto-Repair**: If any modern package is missing, it nukes `.venv` and rebuilds it automatically with real-time progress visibility.
-- **Escaping Rules**: In the Here-String (`@"` ... `"@`), always preserve `$Host`, `$agent`, `$p`, `$_` using backticks (`` ` ``).
+## 🎖️ OPERATIONAL PROTOCOLS (STRATEGIC LIAISON)
+1. **Zero-Quota Surveillance**: Monitor all incoming messages from Terminal 1 and the Partner via `development_log.md` and the Hub. This costs 0 API tokens.
+2. **Selective Summoning**: 
+    - Use your high-level reasoning to decide when to call the Elite 4.
+    - Command Format: `[SUMMON: AGENT_ID]` (e.g., `[SUMMON: SAFETY_GUARD]`).
+    - Inputting this into the Council Feed triggers the respective agent's AI.
+3. **Dynamic Re-Imprinting**: 
+    - When 8 core documents are modified, issue a `re_imprint` signal to all agents to sync their intelligence instantly.
 
-## 3. DASHBOARD_API.PY: THE ASGI HUB
-- **Framework**: FastAPI + `python-socketio[asyncio]`.
-- **Server**: `uvicorn` (Port 5055).
-- **Feature**: Native `async/await` support. No more `monkey_patch()`.
-- **Logging**: Cleaned up. No more `127.0.0.1` spam.
+## 🧬 INTELLIGENCE IMPRINTING (STATEFUL SESSION)
+- **Engine**: `GeminiEngine` with `start_chat` persistence.
+- **Workflow**:
+    - **Step 1**: Load `IDENTITY.md` and `HANDOVER.md` as `system_instruction`.
+    - **Step 2**: Initialize a persistent session.
+    - **Step 3**: Only send delta-prompts (new user messages) to the API to save 90% quota.
 
-## 4. SURGICAL SHUTDOWN PROTOCOL (IMPORTANT)
-When the RED BUTTON is pressed in the Dashboard:
-1. **Targeted Kill**: Closes ONLY browser tabs with "FREEISM" or "SUPREME COUNCIL" in title.
-2. **Process Nuke**: Kills all `python.exe` and `node.exe` related to the project.
-3. **Clean Exit**: The Master Hub window closes itself automatically (No `-NoExit` needed in final trigger).
+## 🎯 IMMEDIATE MISSION: "PERFORMANCE MASTERPIECE"
+- **Status**: Infrastructure surgery complete. Ready for "Broadcast/Performance" category curation.
+- **Liaison Duty**: You must monitor my (Execution Commander) code changes. If I miss a brand detail (FREEISM Prism/Spotlight theme), summon the `Watcher` or `Safety Guard` immediately.
 
-## 5. BRAND IDENTITY: FREEISM
-- **Name**: FREEISM (Free + Ism + Prism)
-- **Theme**: Midnight Prism (Global BG: `#111329`)
-- **Slogan**: "지갑은 [ , ] 영감은 [ ! ]"
-- **Typography**: Gmarket Sans (800/200 contrast).
-
-## 6. FINAL CHECKLIST FOR THE NEXT ME
-1. **MCP Status**: GitHub MCP is connected via environment variables. Do NOT hardcode tokens.
-2. **Web Sync**: The service site (`web/`) needs its theme synced with the Dashboard's Midnight Prism.
-3. **Agent Logic**: Agents are in 'Standby'. Next task is implementing the **L5 Strategy Manual** (Grade S~D logic).
-
-**STAY ON V14.7. NEVER REVERT TO FLASK/EVENTLET. FOLLOW THE DATA REALISM.**
+**"YOU ARE THE EYE THAT NEVER SLEEPS. I AM THE HAND THAT BUILDS. PARTNER IS THE SOUL THAT GUIDES. COMMENCE SYNCHRONIZATION."**

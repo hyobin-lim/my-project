@@ -25,26 +25,27 @@
   gap: 2px;
 }
 
-/* 커스텀 스크롤바 디자인 - 전역 통일 */
+/* 커스텀 스크롤바 디자인 - 가시성 강화 */
 .messages-area::-webkit-scrollbar,
 .work-log-viewer::-webkit-scrollbar {
-  width: 6px;
+  width: 10px;
 }
 
 .messages-area::-webkit-scrollbar-track,
 .work-log-viewer::-webkit-scrollbar-track {
-  background: #050505;
+  background: #0a0b14;
 }
 
 .messages-area::-webkit-scrollbar-thumb,
 .work-log-viewer::-webkit-scrollbar-thumb {
-  background: #222;
-  border-radius: 3px;
+  background: #2a2d3e;
+  border-radius: 5px;
+  border: 2px solid #0a0b14;
 }
 
 .messages-area::-webkit-scrollbar-thumb:hover,
 .work-log-viewer::-webkit-scrollbar-thumb:hover {
-  background: #333;
+  background: #3f445e;
 }
 
 .feed-header {

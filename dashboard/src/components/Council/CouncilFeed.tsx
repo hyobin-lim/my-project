@@ -18,11 +18,11 @@ const CouncilFeed: React.FC = () => {
 
   const participants = [
     { id: 'Partner', color: 'var(--partner)' },
-    { id: 'main_ai', name: 'Main AI', color: 'var(--main-ai)' },
+    { id: 'main_ai', name: 'Liaison', color: 'var(--main-ai)' },
+    { id: 'planner', name: 'Planner', color: 'var(--debater)' },
     { id: 'watcher', name: 'Watcher', color: 'var(--watcher)' },
-    { id: 'guardian', name: 'Guardian', color: 'var(--guardian)' },
+    { id: 'safety_guard', name: 'Safety Guard', color: 'var(--guardian)' },
     { id: 'inspector', name: 'Inspector', color: 'var(--inspector)' },
-    { id: 'debater', name: 'Debater', color: 'var(--debater)' },
   ];
 
   useEffect(() => {
