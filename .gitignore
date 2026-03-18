@@ -12,6 +12,7 @@ yarn.lock
 .env
 .env.local
 .env.*.local
+api_key.txt
 
 # 빌드 산출물
 dist/

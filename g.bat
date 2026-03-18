@@ -1,22 +1,30 @@
 @echo off
-:: g.bat (AI Universal Bridge V8.7)
+:: g.bat (AI Universal Bridge V20.5 - Elite Guide)
 :: -----------------------------------------------------------
-:: -NoProfile을 제거하여 시스템 경로(npm 등)를 정상적으로 인식하게 합니다.
+:: 이 배치 파일은 초기 환경 진단 및 2분할 터미널 기동을 안내합니다.
 :: -----------------------------------------------------------
 
 set "PROJECT_ROOT=%~dp0"
 cd /d "%PROJECT_ROOT%"
 
-:: PowerShell V8.7 통합 스크립트 실행
+:: PowerShell 진단 스크립트 실행 (역할 없이 일반 진단)
 powershell.exe -ExecutionPolicy Bypass -File ".\g.ps1"
 
 if %ERRORLEVEL% EQU 0 (
     echo.
-    echo [OK] Ecosystem is warming up... Starting Gemini CLI.
+    echo [READY] Infrastructure is stable.
     echo.
-    gemini
+    echo ===========================================================
+    echo    🔥 ACTION REQUIRED: Press [Ctrl + Shift + B]
+    echo ===========================================================
+    echo    * This will launch the DUAL-BRAIN COMMAND CENTER.
+    echo    * LEFT:  Executor (T1)
+    echo    * RIGHT: Coordinator (T2)
+    echo ===========================================================
+    echo.
+    pause
 ) else (
     echo.
-    echo [!! ERROR] AI Ecosystem failed to start with Error Code: %ERRORLEVEL%
+    echo [!! ERROR] AI Infrastructure failed to start with Error Code: %ERRORLEVEL%
     pause
 )

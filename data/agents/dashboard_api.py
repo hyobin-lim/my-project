@@ -75,9 +75,11 @@ async def handle_council(sid, data):
 async def handle_work_log(sid, data):
     log_text = data.get('log', '')
     timestamp = datetime.datetime.now().strftime("%H:%M:%S")
-    # 단순 모니터링 로그는 제외하고 중요한 로그만 서버 콘솔에 표시
-    if "SUMMON" in log_text or "Veto" in log_text:
-        logger.warning(f"🚨 [ALERT] {log_text}")
+    # 중요한 명령이나 상태 변화는 서버 로그에 강조 표시
+    if ">>>" in log_text or "SUMMON" in log_text or "Veto" in log_text:
+        logger.warning(f"🚀 [T1 ACTION] {log_text}")
+    
+    # 대시보드의 EXECUTION STREAM 섹션으로 실시간 브로드캐스트
     await sio.emit('new_work_log', {'log': log_text, 'timestamp': timestamp})
 
 @sio.on('system_shutdown')

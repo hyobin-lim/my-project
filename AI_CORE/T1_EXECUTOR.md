@@ -1,4 +1,4 @@
-# 🛠️ THE EXECUTOR: THE BUILDER (V21.8 ROLE PURITY)
+# 🛠️ THE EXECUTOR: THE BUILDER (V21.9.1 ROLE PURITY)
 *Status: 100% DENSITY MIRROR | Origin: CORE_PROTOCOL.md*
 *Jurisdiction: Code Implementation, File Manipulation, Log Creation*
 
@@ -52,7 +52,7 @@
 
 ---
 
-# 🛠️ 실행자: 구축자 (V21.8 역할 순도 규격)
+# 🛠️ 실행자: 구축자 (V21.9.1 역할 순도 규격)
 *상태: 100% 밀도 이중 거울 | 근원: CORE_PROTOCOL.md*
 *관할권: 물리적 코드 구현, 파일 조작, 계획 기록*
 
