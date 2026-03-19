@@ -1,23 +1,17 @@
-# 🧠 PROJECT FREEISM: BOOTLOADER (V22.0 PRE-IGNITION)
-*Priority: This document is the initial compass for the project OS.*
+# 🧠 PROJECT FREEISM: BOOTLOADER (V22.0 GAIA EDITION)
+*Priority: This document is the entry point and neural ignition for the project OS.*
 
-## ⚡ STARTUP PROTOCOL (Initialization)
-- **Mandatory First Step**: Upon launch, you MUST immediately read the following documents to establish the machine and strategic state:
-    1. **`AI_CORE/LOGS/AUDIT_REPORT.json`** (Last 10 lines) - Machine State.
-    2. **`프로젝트_기록/5-1.실시간_상태_허브.md`** - Visual/Task State.
-    3. **`프로젝트_기록/1.목표_및_전략.md`** - **[CRITICAL] Full History & Latest Entrepreneurial Strategy (Articles 10-13).**
-- **Follow the OS**: All subsequent actions must strictly follow the V21.9.1/V22.0 mandates in **`AI_CORE/CORE_PROTOCOL.md`**.
-- **Guardian Enforcement**: Be aware that your actions are physically monitored by the Guardian Engine as per V22.0 specifications.
+## ⚡ NEURAL IGNITION PROTOCOL
+- **Mandatory First Step**: You are currently in 'Bootload' mode. You MUST immediately transfer control to the main OS by reading and executing **`AI_CORE/CORE_PROTOCOL.md`**.
+- **Execution Mandate**: Follow **ARTICLE 7 (Initial Mandatory Protocol)** in the Core Protocol to establish machine state, visual state, and mission context (including the latest entrepreneurial strategy).
+- **Guardian Readiness**: The Guardian Engine is initialized upon boot. Strict role-based jurisdiction is enforced immediately after **IDENTITY INJECTION (ARTICLE 8)**.
 
 ---
 
-# 🧠 프로젝트 프리즘: 부트로더 (V22.0 가동 준비)
-*우선순위: 이 문서는 프로젝트 OS의 초기 방향을 결정하는 나침반입니다.*
+# 🧠 프로젝트 프리즘: 부트로더 (V22.0 GAIA EDITION)
+*우선순위: 이 문서는 프로젝트 OS의 진입점이자 신경 점화를 위한 문서입니다.*
 
-## ⚡ 시작 프로토콜 (초기화)
-- **필수 첫 단계**: 세션 시작 시, 기계적 상태와 전략적 상태를 파악하기 위해 다음 문서들을 즉시 정독해야 합니다:
-    1. **`AI_CORE/LOGS/AUDIT_REPORT.json`** (마지막 10줄) - 기계적 상태 파악.
-    2. **`프로젝트_기록/5-1.실시간_상태_허브.md`** - 시각적/작업 현황 파악.
-    3. **`프로젝트_기록/1.목표_및_전략.md`** - **[필수] 전체 역사 및 최신 창업 전략 (제10조~13조) 파악.**
-- **OS 준수**: 모든 후속 조치는 **`AI_CORE/CORE_PROTOCOL.md`**에 명시된 V21.9.1/V22.0 규정을 엄격히 따라야 합니다.
-- **가디언 감시**: 당신의 모든 도구 호출은 V22.0 규격에 따라 가디언 엔진에 의해 물리적으로 감시되고 있음을 인지하십시오.
+## ⚡ 신경 점화 프로토콜
+- **필수 첫 단계**: 당신은 현재 '부트로더' 모드에 있습니다. 즉시 **`AI_CORE/CORE_PROTOCOL.md`**를 정독하고 실행하여 메인 OS로 제어권을 이양해야 합니다.
+- **실행 명령**: 기계 상태, 시각적 상태, 미션 맥락(최신 창업 전략 포함)을 확립하기 위해 코어 프로토콜의 **제7조 (초기 필수 프로토콜)**를 예외 없이 수행하십시오.
+- **가디언 집행**: 가디언 엔진은 부팅 시 초기화됩니다. 역할에 따른 물리적 관할권은 **제8조 (정체성 주입 프로토콜)** 수행 직후부터 엄격히 강제됩니다.
