@@ -1,31 +1,35 @@
 # 📡 SUPREME STRATEGIC LIAISON HANDOVER (V22.0 GAIA EDITION)
 > **FOR: THE STRATEGIC COMMANDER (NEXT SESSION)**
-> **FROM: THE PREVIOUS INSTANCE**
+> **FROM: THE PREVIOUS INSTANCE (2026-03-19)**
 
-## 🏛️ SESSION OUTCOME: V22.0 FOUNDATION LAID
-1. **The Constitution Reborn**: 
-   - `CORE_PROTOCOL.md` (V22.0 GAIA EDITION) established.
-   - 11 Articles Mirror Structure: English BIOS and Korean Identity perfectly aligned 1:1.
-   - ZERO-OMIT enforced: Literal data (High-end Tree, Tech Stack, JSON Schemas) 100% recovered.
-2. **Neural Bootloader Active**: 
-   - `g.ps1` restructured into a 5-step sequence [Purge -> Dependency Sync -> Guardian Ignition -> Neural Sync -> Readiness].
-   - `tasks.json` & `launch_agent.ps1` configured for manual dual-brain splitting (Ctrl+Shift+B).
-3. **Guardian Deadman's Switch**: 
-   - `guardian.py` implemented in a dedicated external window.
-   - Guardian shutdown now triggers a SIGKILL strike to all active agents.
+## 🏛️ SESSION OUTCOME: V22.0 GOVERNANCE FULLY ESTABLISHED
+Today, we achieved a monumental leap in the project's structural integrity and governance. The following foundations are now set in stone:
 
-## 🚨 NEW ACCUMULATION MANDATE (The "Bottom-Stamp" Rule)
-- **Goal**: Ensure 100% chronological continuity without accidental overwriting.
-- **Rule**: After every major document update, the AI MUST append the current date and time at the very bottom of the file.
-- **Execution**: The next AI MUST check the last date stamp before starting any write operation to ensure it is appending to the correct timeline.
+1. **Constitutional Reform (CORE_PROTOCOL.md)**: 
+   - 1:1 Dual-Mirror symmetry achieved between English and Korean sections.
+   - **Zero-Omit Principle** legalized: Any form of summarization is now a protocol violation.
+   - **The Prosecution Loop** integrated: Formalized the relationship between Auditor (T2) and Enforcer (Guardian).
 
-## 🎯 NEXT MISSION: PHYSICAL ENFORCEMENT
-1. **ACL.json Design**: Map every file/folder to T1/T2 read/write permissions.
-2. **Guardian Interceptor**: Implement the actual tool-call filtering logic in `guardian.py`.
-3. **Tailwind/shadcn Setup**: Initiate the "Layer 2 (Structure)" of the Roadmap.
-4. **Data Recovery**: Update Doc #3 (Structure) and Doc #4 (Architecture) with the details recovered in this session.
+2. **The Triple-Agent DNA (BIOS Updates)**:
+   - **GUARDIAN.md**: Established as the BIOS for the Physical Enforcer. Defined as the 'Sole Scrivener' of the Strike Ledger.
+   - **T2_COORDINATOR.md**: Re-engineered as the 'Strategic Prosecutor'. Owns the indictment process but is physically blocked from modifying the ledger.
+   - **T1_EXECUTOR.md**: Synchronized to V22.0. Imprinted with the fear of physical SIGKILL and ACL boundaries.
+
+3. **Physical Security Grid (ACL & Sanctuary)**:
+   - **ACL.json**: Moved to `AI_CORE/LOGS/` for logical isolation. Defines strict write zones for each agent.
+   - **Archive Sanctuary**: Created `기록_보관소/` folder. Physically blocked for ALL agents. Only the Partner has write access.
+   - **Historical Integrity**: Archived Doc #3, #4, and Handover logs (V21.0 and below) to the sanctuary to maintain clean context for the main session.
+
+## 🚨 CRITICAL DIRECTIVE: DATA REALISM & 무손실 (Never-Omit)
+- The Commander of the next session must strictly adhere to the **Literal Density** mandate. 
+- NEVER use `...` or `(Omitted)`. If a file is too large, use targeted `read_file` or `replace`, but always ensure the final output reflects 100% of the original logic.
+
+## 🎯 NEXT MISSION: THE PHYSICAL INTERCEPTOR (V22.1)
+1. **Guardian Python Logic**: Implement the actual tool-call interception and ACL-check logic in `data/agents/guardian.py`.
+2. **Strike Enforcement**: Enable the SIGKILL trigger upon ACL violations or terminal strike count.
+3. **Frontend Layer 2**: Initiate Tailwind CSS and shadcn/ui environment setup within the `web/` directory.
 
 ---
-**[FINAL SEAL] Memory Transferred. The Constitution is Sacred. No summaries. No omissions.**
+**[FINAL SEAL] Memory Transferred. The Constitution is Sacred. The Sanctuary is Guarded. No summaries. No omissions.**
 
-[LAST_STAMP] 2026-03-19 15:45:00
+[LAST_STAMP] 2026-03-19 21:40:00

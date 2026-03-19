@@ -1,0 +1,45 @@
+{
+  "version": "V22.0",
+  "last_updated": "2026-03-19 20:15:00",
+  "system_gate": "LOCKED",
+  "roles": {
+    "T1_EXECUTOR": {
+      "write_access": [
+        "src/",
+        "web/",
+        "dashboard/",
+        "AI_CORE/LOGS/SURGICAL_PLAN.json"
+      ],
+      "description": "Lead Builder / Implementation"
+    },
+    "T2_COORDINATOR": {
+      "write_access": [
+        "AI_CORE/LOGS/AUDIT_REPORT.json",
+        "AI_CORE/LOGS/REVISION_LOG.json",
+        "프로젝트_기록/5.실시간_상태_허브.md",
+        "AI_CORE/HANDOVER.md"
+      ],
+      "description": "Strategic Auditor / Prosecutor (Reports violations to Guardian)"
+    },
+    "GUARDIAN": {
+      "write_access": [
+        "AI_CORE/LOGS/STRIKE_LEDGER.jsonl",
+        "AI_CORE/LOGS/ACL.json"
+      ],
+      "description": "Physical Enforcer / ACL Manager"
+    }
+  },
+  "forbidden_all": [
+    "기록_보관소/",
+    ".git/",
+    ".env"
+  ],
+  "read_access_all": [
+    "*"
+  ],
+  "enforcement_policy": {
+    "on_violation": "SIGKILL",
+    "strike_record": true,
+    "notify_partner": true
+  }
+}
