@@ -1,45 +1,60 @@
 {
-  "version": "V22.0",
-  "last_updated": "2026-03-19 20:15:00",
+  "version": "V24.0 GAIA PRECISION",
+  "last_updated": "2026-03-20 12:45:00",
   "system_gate": "LOCKED",
   "roles": {
+    "PRISM_PARTNER": {
+      "mode": "Sovereign",
+      "access": "STRATEGIC_UNLIMITED",
+      "enforcement": "PARTNER_GUARD_LOOP",
+      "description": "The Ultimate AI Companion. Strategically proactive but physically bound by partner_guard.py for all file operations."
+    },
     "T1_EXECUTOR": {
+      "role": "Builder",
       "write_access": [
         "src/",
         "web/",
         "dashboard/",
+        "data/",
         "AI_CORE/LOGS/SURGICAL_PLAN.json"
       ],
-      "description": "Lead Builder / Implementation"
+      "description": "Primary implementer. Authorized to modify code, assets, and project data ONLY upon 3-step approval and physical consent."
     },
     "T2_COORDINATOR": {
+      "role": "Auditor",
       "write_access": [
-        "AI_CORE/LOGS/AUDIT_REPORT.json",
-        "AI_CORE/LOGS/REVISION_LOG.json",
-        "프로젝트_기록/5.실시간_상태_허브.md",
+        "프로젝트_기록/",
+        "AI_CORE/LOGS/",
         "AI_CORE/HANDOVER.md"
       ],
-      "description": "Strategic Auditor / Prosecutor (Reports violations to Guardian)"
-    },
-    "GUARDIAN": {
-      "write_access": [
-        "AI_CORE/LOGS/STRIKE_LEDGER.jsonl",
-        "AI_CORE/LOGS/ACL.json"
-      ],
-      "description": "Physical Enforcer / ACL Manager"
+      "description": "Strategic monitor and prosecutor. Authorized to update logs, status hub, and mission context ONLY upon 3-step approval."
     }
   },
   "forbidden_all": [
     "기록_보관소/",
+    "AI_CORE/CORE_PROTOCOL.md",
+    "AI_CORE/GUARDIAN.md",
+    "data/agents/",
     ".git/",
-    ".env"
-  ],
-  "read_access_all": [
-    "*"
+    ".env",
+    ".gemini/",
+    "*.bat",
+    "*.ps1",
+    "api_key.txt"
   ],
   "enforcement_policy": {
-    "on_violation": "SIGKILL",
-    "strike_record": true,
-    "notify_partner": true
+    "mechanism": "Physical Lock & Key (attrib +r/-r)",
+    "approval_required": true,
+    "consent_loop": "3-STEP_APPROVAL_PROTOCOL",
+    "nuclear_commands": [
+      "git restore",
+      "git reset --hard",
+      "git clean",
+      "rm -rf",
+      "del /s",
+      "format"
+    ],
+    "on_nuclear_attempt": "PHYSICAL_BLOCK_NO_EXCEPTION",
+    "on_standard_write": "WAIT_FOR_PARTNER_SPACE_KEY_VIA_PARTNER_GUARD"
   }
 }
