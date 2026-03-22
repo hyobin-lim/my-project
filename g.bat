@@ -1,4 +1,6 @@
 @echo off
+python -X utf8 data/agents/unlock_all.py
+
 :: g.bat (AI Universal Bridge V20.5 - Elite Guide)
 :: -----------------------------------------------------------
 :: 이 배치 파일은 초기 환경 진단 및 2분할 터미널 기동을 안내합니다.

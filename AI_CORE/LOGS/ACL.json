@@ -1,24 +1,20 @@
 {
-  "version": "V24.0 GAIA PRECISION",
-  "last_updated": "2026-03-20 12:45:00",
+  "version": "V24.2 TOTAL SANCTUARY",
+  "last_updated": "2026-03-22 18:10:00",
   "system_gate": "LOCKED",
   "roles": {
     "PRISM_PARTNER": {
       "mode": "Sovereign",
       "access": "STRATEGIC_UNLIMITED",
       "enforcement": "PARTNER_GUARD_LOOP",
-      "description": "The Ultimate AI Companion. Strategically proactive but physically bound by partner_guard.py for all file operations."
+      "description": "최상위 지능. 모든 파일 조작 시 partner_guard.py를 통한 물리적 승인(SPACE) 필수."
     },
     "T1_EXECUTOR": {
       "role": "Builder",
       "write_access": [
-        "src/",
-        "web/",
-        "dashboard/",
-        "data/",
-        "AI_CORE/LOGS/SURGICAL_PLAN.json"
+        "./"
       ],
-      "description": "Primary implementer. Authorized to modify code, assets, and project data ONLY upon 3-step approval and physical consent."
+      "description": "실무 구축자. 무거운 폴더를 제외한 전 구역에 대해 승인 후 쓰기 권한 행사."
     },
     "T2_COORDINATOR": {
       "role": "Auditor",
@@ -27,20 +23,28 @@
         "AI_CORE/LOGS/",
         "AI_CORE/HANDOVER.md"
       ],
-      "description": "Strategic monitor and prosecutor. Authorized to update logs, status hub, and mission context ONLY upon 3-step approval."
+      "description": "전수 감사 및 조율자. 기록 및 감사 관련 구역에 대해 승인 후 쓰기 권한 행사."
     }
   },
   "forbidden_all": [
+    "./",
     "기록_보관소/",
     "AI_CORE/CORE_PROTOCOL.md",
     "AI_CORE/GUARDIAN.md",
-    "data/agents/",
     ".git/",
     ".env",
     ".gemini/",
     "*.bat",
     "*.ps1",
     "api_key.txt"
+  ],
+  "ignore_zones": [
+    "node_modules/",
+    ".git/",
+    ".venv/",
+    "dist/",
+    "build/",
+    "__pycache__/"
   ],
   "enforcement_policy": {
     "mechanism": "Physical Lock & Key (attrib +r/-r)",

@@ -12,7 +12,8 @@ param (
     [string]$Role
 )
 
-$PROJECT_ROOT = Split-Path -Parent $MyInvocation.MyCommand.Definition
+# USB 환경 대응: 스크립트 위치 기준 절대 경로 확보
+$PROJECT_ROOT = $PSScriptRoot
 if (-not $PROJECT_ROOT) { $PROJECT_ROOT = (Get-Location).Path }
 Set-Location $PROJECT_ROOT
 
@@ -26,11 +27,12 @@ Write-Host "=========================================================" -Foregrou
 $portFile = Join-Path $PROJECT_ROOT "data/port.txt"
 if (-not (Test-Path $portFile)) {
     Write-Host "[!] Error: Guardian Beacon (port.txt) not found. Is Guardian running?" -ForegroundColor Red
+    Write-Host "    Please run '.\g.ps1' or 'g' command first." -ForegroundColor Yellow
     pause
     exit 1
 }
 
-$guardianPort = Get-Content $portFile -Raw
+$guardianPort = (Get-Content $portFile -Raw).Trim()
 Write-Host "[1/3] Connecting to Guardian Beacon at Port: $guardianPort..." -ForegroundColor Gray
 
 # --- 2. 핸드셰이크 (Handshake) ---
@@ -75,11 +77,11 @@ Write-Host "`n" + ("-" * 57) -ForegroundColor Magenta
 Write-Host "  $Role IDENTITY INITIALIZATION REQUIRED" -ForegroundColor Magenta
 Write-Host ("-" * 57) -ForegroundColor Magenta
 Write-Host "`n  Please execute the following command to begin:`n" -ForegroundColor Gray
-Write-Host "  gemini" -ForegroundColor White -NoNewline
-Write-Host " (Wait for 'How can I help you?') " -ForegroundColor Gray
+Write-Host "  python -m gemini_cli" -ForegroundColor Green
+Write-Host "  (Wait for 'How can I help you?') " -ForegroundColor Gray
 Write-Host "`n  Then, copy and paste your BIOS manual content or path:`n" -ForegroundColor Gray
 Write-Host "  `"$biosPath`"" -ForegroundColor Green
 Write-Host "`n" + ("=" * 57) -ForegroundColor Magenta
 
-# 터미널 유지
+# 터미널 제목 설정 및 유지
 $Host.UI.RawUI.WindowTitle = "FREEISM AGENT: $Role (PID: $PID)"

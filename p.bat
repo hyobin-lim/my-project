@@ -1,4 +1,6 @@
 @echo off
+python -X utf8 data/agents/unlock_all.py
+
 :: p.bat (Wrapper for p.ps1 - VS Code & Terminal Unified)
 set "PROJECT_ROOT=%~dp0"
 cd /d "%PROJECT_ROOT%"

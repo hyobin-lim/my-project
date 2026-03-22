@@ -1,9 +1,14 @@
-# p.ps1 (V24.1 - Prism Partner Master Ignition)
+# p.ps1 (V24.2 - Prism Partner Ultra-Stability Ignition)
 # -----------------------------------------------------------
-# 이 스크립트는 기존 세션을 완전히 종료하고 파트너 가디언과 제미나이를 새롭게 기동합니다.
+# 이 스크립트는 인코딩 문제를 해결하고 가디언 세션을 안정적으로 기동합니다.
 # -----------------------------------------------------------
 
-$PROJECT_ROOT = Split-Path -Parent $MyInvocation.MyCommand.Definition
+# --- 0. 인코딩 및 환경 설정 ---
+$OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+# USB 환경 대응: 스크립트 위치 기준 절대 경로 확보
+$PROJECT_ROOT = $PSScriptRoot
 if (-not $PROJECT_ROOT) { $PROJECT_ROOT = (Get-Location).Path }
 Set-Location $PROJECT_ROOT
 
@@ -18,23 +23,22 @@ Get-CimInstance Win32_Process | Where-Object {
 } | ForEach-Object {
     try { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue } catch {}
 }
-Write-Host "✅ Purge Complete. Starting Fresh." -ForegroundColor Green
+Write-Host "OK: Purge Complete. Starting Fresh." -ForegroundColor Green
 
-# --- 2. 파트너 가디언 점화 (Partner Guard in PowerShell) ---
+# --- 2. 파트너 가디언 점화 (Partner Guard using System Python) ---
 Write-Host "[2/3] Partner Guard Ignition..." -ForegroundColor Cyan
 
-$venvPython = Join-Path $PROJECT_ROOT ".venv\Scripts\python.exe"
 $guardScript = Join-Path $PROJECT_ROOT "data\agents\partner_guard.py"
 
-# 새 파워쉘 창에서 가디언 실행 (따옴표 문제 해결)
-Start-Process powershell -ArgumentList "-NoExit", "-Command", "& { `$Host.UI.RawUI.WindowTitle = '🛡️ PARTNER GUARD (V24.1)'; & '$venvPython' '$guardScript'; if (`$LASTEXITCODE -ne 0) { pause } }" -WindowStyle Normal
+# 시스템 PATH의 파이썬을 직접 호출 (USB .venv 경로 문제 해결)
+Start-Process powershell -ArgumentList "-Command", "& { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8; `$Host.UI.RawUI.WindowTitle = 'PARTNER GUARD (V24.2)'; & python '$guardScript'; if (`$LASTEXITCODE -ne 0) { pause } }" -WindowStyle Normal
 
 Start-Sleep -Seconds 2
-Write-Host "✅ Partner Guard is standing watch." -ForegroundColor Green
+Write-Host "OK: Partner Guard is standing watch." -ForegroundColor Green
 
 # --- 3. 제미나이 소환 (Summoning Prism Partner) ---
 Write-Host "[3/3] Summoning Prism Partner..." -ForegroundColor Magenta
 Write-Host "-----------------------------------------------------------" -ForegroundColor Gray
 
-# 제미나이 실행 (마지막 단계)
+# 제미나이 실행
 gemini
