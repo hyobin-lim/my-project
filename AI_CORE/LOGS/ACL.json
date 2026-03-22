@@ -1,29 +1,37 @@
 {
-  "version": "V24.2 TOTAL SANCTUARY",
-  "last_updated": "2026-03-22 18:10:00",
+  "version": "V25.0 FRONTEND IGNITION",
+  "last_updated": "2026-03-23 03:30:00",
   "system_gate": "LOCKED",
   "roles": {
     "PRISM_PARTNER": {
       "mode": "Sovereign",
       "access": "STRATEGIC_UNLIMITED",
       "enforcement": "PARTNER_GUARD_LOOP",
-      "description": "최상위 지능. 모든 파일 조작 시 partner_guard.py를 통한 물리적 승인(SPACE) 필수."
+      "description": "최상위 주권자. 모든 도구 사용 전 partner_guard.py를 통한 물리적 결재([SPACE])를 강제하는 유일한 입법자."
     },
     "T1_EXECUTOR": {
       "role": "Builder",
       "write_access": [
-        "./"
+        "./",
+        "web/",
+        "dashboard/",
+        "data/",
+        "프로젝트_기록/3.프로젝트_상세_구조도.md",
+        "프로젝트_기록/4.설계_및_구조.md",
+        "프로젝트_기록/5.실시간_전략_실행_로그.md",
+        "프로젝트_기록/6.트러블슈팅_및_교훈.md"
       ],
-      "description": "실무 구축자. 무거운 폴더를 제외한 전 구역에 대해 승인 후 쓰기 권한 행사."
+      "description": "실무 마스터 빌더. 6+6 문서 체계 중 기록 3, 4, 5, 6번에 대한 수정 권한을 가지며, 코드 전 구역을 담당함."
     },
     "T2_COORDINATOR": {
       "role": "Auditor",
       "write_access": [
-        "프로젝트_기록/",
-        "AI_CORE/LOGS/",
+        "AI_CORE/LOGS/SURGICAL_PLAN.json",
+        "AI_CORE/LOGS/AUDIT_REPORT.json",
+        "AI_CORE/LOGS/REVISION_LOG.json",
         "AI_CORE/HANDOVER.md"
       ],
-      "description": "전수 감사 및 조율자. 기록 및 감사 관련 구역에 대해 승인 후 쓰기 권한 행사."
+      "description": "사법 감사관. 전략 로그 6종에 대한 전수 감사 및 기소 권한을 가지며, T1의 모든 행위를 법의학적으로 검증함."
     }
   },
   "forbidden_all": [
