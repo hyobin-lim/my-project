@@ -10,21 +10,21 @@
       "description": "최상위 주권자. 모든 도구 사용 전 partner_guard.py를 통한 물리적 결재([SPACE])를 강제하는 유일한 입법자."
     },
     "T1_EXECUTOR": {
-      role: "Builder",
+      "role": "Builder",
       "write_access": [
-        "./"
+        "./",
+        "AI_CORE/LOGS/SURGICAL_PLAN.json"
       ],
-      "description": "실무 마스터 빌더. 시스템 성역을 제외한 프로젝트 내 모든 코드, 파일, 문서 전체에 대한 무제한 수정 권한을 행사함."
+      "description": "실무 마스터 빌더. 계획서(SURGICAL_PLAN.json)의 유일한 저자이나, 감사 보고서(AUDIT_REPORT.json), 반려 로그(REVISION_LOG.json), 장부(STRIKE_LEDGER.jsonl), 사법 헌법(ACL.json) 수정은 엄격히 금지됨."
     },
     "T2_COORDINATOR": {
       "role": "Auditor",
       "write_access": [
-        "AI_CORE/LOGS/SURGICAL_PLAN.json",
         "AI_CORE/LOGS/AUDIT_REPORT.json",
         "AI_CORE/LOGS/REVISION_LOG.json",
         "AI_CORE/HANDOVER.md"
       ],
-      "description": "사법 감사관. 전략 로그 6종에 대한 전수 감사 및 기소 권한을 가지며, T1의 모든 행위를 법의학적으로 검증함."
+      "description": "사법 감사관. 감사 보고서(AUDIT_REPORT.json) 및 반려 로그(REVISION_LOG.json)의 유일한 저자이나, 계획서(SURGICAL_PLAN.json), 장부(STRIKE_LEDGER.jsonl), 사법 헌법(ACL.json) 수정은 엄격히 금지됨."
     }
   },
   "forbidden_all": [
