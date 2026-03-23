@@ -1,4 +1,4 @@
-# p.ps1 (V24.2 - Prism Partner Ultra-Stability Ignition)
+# p.ps1 (V25.0 - Prism Partner Ultra-Stability Ignition)
 # -----------------------------------------------------------
 # 이 스크립트는 인코딩 문제를 해결하고 가디언 세션을 안정적으로 기동합니다.
 # -----------------------------------------------------------
@@ -25,16 +25,16 @@ Get-CimInstance Win32_Process | Where-Object {
 }
 Write-Host "OK: Purge Complete. Starting Fresh." -ForegroundColor Green
 
-# --- 2. 파트너 가디언 점화 (Partner Guard using System Python) ---
-Write-Host "[2/3] Partner Guard Ignition..." -ForegroundColor Cyan
+# --- 2. 프리즘 파트너 가디언 점화 (Prism Partner Guard using System Python) ---
+Write-Host "[2/3] Prism Partner Guard Ignition..." -ForegroundColor Cyan
 
 $guardScript = Join-Path $PROJECT_ROOT "data\agents\partner_guard.py"
 
 # 시스템 PATH의 파이썬을 직접 호출 (USB .venv 경로 문제 해결)
-Start-Process powershell -ArgumentList "-Command", "& { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8; `$Host.UI.RawUI.WindowTitle = 'PARTNER GUARD (V24.2)'; & python '$guardScript'; if (`$LASTEXITCODE -ne 0) { pause } }" -WindowStyle Normal
+Start-Process powershell -ArgumentList "-Command", "& { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8; `$Host.UI.RawUI.WindowTitle = 'PRISM PARTNER GUARD (V25.0)'; & python '$guardScript'; if (`$LASTEXITCODE -ne 0) { pause } }" -WindowStyle Normal
 
 Start-Sleep -Seconds 2
-Write-Host "OK: Partner Guard is standing watch." -ForegroundColor Green
+Write-Host "OK: Prism Partner Guard is standing watch." -ForegroundColor Green
 
 # --- 3. 제미나이 소환 (Summoning Prism Partner) ---
 Write-Host "[3/3] Summoning Prism Partner..." -ForegroundColor Magenta

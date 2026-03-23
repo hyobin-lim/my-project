@@ -9,14 +9,16 @@ import signal
 import atexit
 import stat
 import glob
+import secrets
 
-# 색상 코드 (안전한 표준 코드만 사용)
+# 색상 코드
 RESET = "\033[0m"
 RED = "\033[91m"
 GREEN = "\033[92m"
 YELLOW = "\033[93m"
 CYAN = "\033[96m"
 MAGENTA = "\033[95m"
+GRAY = "\033[90m"
 WHITE = "\033[97m"
 BG_RED = "\033[41m"
 
@@ -29,273 +31,306 @@ ACL_FILE = os.path.join(PROJECT_ROOT, 'AI_CORE', 'LOGS', 'ACL.json')
 # 전역 상태
 pending_response = None
 input_event = threading.Event()
-is_maintenance_mode = False
+is_waiting_approval = False
 running = True
-
-def cleanup():
-    """종료 시 정화 작업"""
-    global running
-    running = False
-    release_all_locks()
-    if os.path.exists(PORT_FILE): 
-        try: os.remove(PORT_FILE)
-        except: pass
-    if os.path.exists(PID_FILE): 
-        try: os.remove(PID_FILE)
-        except: pass
-
-def signal_handler(sig, frame):
-    """X 버튼 또는 Ctrl+C 감지"""
-    cleanup()
-    os._exit(0) # 즉각 강제 종료 (atexit은 os._exit에서 작동 안 하므로 직접 호출)
-
-# 시그널 및 종료 핸들러 등록
-signal.signal(signal.SIGINT, signal_handler)
-signal.signal(signal.SIGTERM, signal_handler)
-if os.name == 'nt':
-    try:
-        signal.signal(signal.SIGBREAK, signal_handler)
-    except:
-        pass
+current_token = None
+permitted_tool = None
+relock_timer = None
 
 def set_readonly(path, make_readonly):
-    """단일 파일/디렉토리의 읽기 전용 속성 설정/해제"""
+    """파일의 읽기 전용 속성 설정/해제"""
     try:
+        if not os.path.exists(path): return False
         mode = os.stat(path).st_mode
-        if make_readonly:
-            os.chmod(path, mode & ~stat.S_IWRITE)
-        else:
-            os.chmod(path, mode | stat.S_IWRITE)
+        if make_readonly: os.chmod(path, mode & ~stat.S_IWRITE)
+        else: os.chmod(path, mode | stat.S_IWRITE)
         return True
-    except Exception as e:
-        print(f"{RED}[WARN] Perm fail on {os.path.basename(path)}: {e}{RESET}")
-        return False
+    except: return False
 
 def _process_lock_paths(paths, make_readonly):
-    """경로 목록에 대해 재귀적으로 잠금/해제 처리 (무시할 디렉토리 지정)"""
+    """경로 잠금/해제 처리 (성능 최적화 버전)"""
     processed_count = 0
     ignore_dirs = set(['node_modules', '.git', '.venv', '__pycache__', 'dist', 'build', '.next', 'out'])
     
-    expanded_targets = set()
     for target in paths:
+        clean_target = target.strip().replace('/', os.sep)
+        full_p = os.path.normpath(os.path.join(PROJECT_ROOT, clean_target))
+        
         if '*' in target or '?' in target:
-            glob_path = os.path.join(PROJECT_ROOT, target)
-            for p in glob.glob(glob_path, recursive=True):
-                expanded_targets.add(p)
-        else:
-            # 루트(./) 처리 시 공백 제거 및 경로 정규화
-            clean_target = target.strip().replace('/', os.sep)
-            expanded_targets.add(os.path.normpath(os.path.join(PROJECT_ROOT, clean_target)))
-
-    for path in expanded_targets:
-        if not os.path.exists(path):
-            continue
-
-        # 처리 전에 무시할 디렉토리인지 확인
-        if os.path.basename(path) in ignore_dirs:
-            continue
-
-        processed_count += 1
-        if os.path.isdir(path):
-            for root, dirs, files in os.walk(path, topdown=True):
-                # 하위 디렉토리 순회 자체를 막음
-                dirs[:] = [d for d in dirs if d not in ignore_dirs]
-                
-                for name in files:
-                    set_readonly(os.path.join(root, name), make_readonly)
-                for name in dirs: # dirs 리스트는 위에서 필터링 되었음
-                    set_readonly(os.path.join(root, name), make_readonly)
-        
-        # 마지막으로 자기 자신 처리
-        set_readonly(path, make_readonly)
-        
+            for p in glob.glob(full_p, recursive=True):
+                if any(ig in p for ig in ignore_dirs): continue
+                if p.endswith('.pid') or p.endswith('.txt'): continue
+                if set_readonly(p, make_readonly): processed_count += 1
+        elif os.path.exists(full_p):
+            if any(ig in full_p for ig in ignore_dirs): continue
+            if full_p.endswith('.pid') or full_p.endswith('.txt'): continue
+            if set_readonly(full_p, make_readonly): processed_count += 1
+            
     return processed_count
 
 def release_all_locks():
-    """ACL.json에 정의된 모든 보호 대상을 물리적으로 잠금 해제 (-r)"""
-    print(f"\n{CYAN}[INIT] Releasing physical locks for all sanctuaries...{RESET}")
+    """ACL 전 구역 잠금 해제"""
+    print(f"\n{CYAN}[해방] 모든 물리적 봉인을 해제 중입니다...{RESET}", flush=True)
+    sys.stdout.flush()
     try:
         if not os.path.exists(ACL_FILE): return
-
-        with open(ACL_FILE, 'r', encoding='utf-8') as f:
-            acl = json.load(f)
-        
+        with open(ACL_FILE, 'r', encoding='utf-8') as f: acl = json.load(f)
         targets = set(acl.get("forbidden_all", []))
-        for role in acl.get("roles", {}).values():
-            targets.update(role.get("write_access", []))
-
-        released_count = _process_lock_paths(targets, make_readonly=False)
-        
-        if released_count > 0:
-            print(f"{GREEN}[V] {released_count} sanctuary targets physically released.{RESET}")
+        for role in acl.get("roles", {}).values(): targets.update(role.get("write_access", []))
+        count = _process_lock_paths(targets, False)
+        print(f"{GREEN}[완료] {count}개의 구역이 자유를 되찾았습니다.{RESET}", flush=True)
+        sys.stdout.flush()
     except Exception as e:
-        print(f"{RED}[!] Lock Release Failed: {e}{RESET}")
+        print(f"{RED}[오류] 봉인 해제 실패: {e}{RESET}", flush=True)
+        sys.stdout.flush()
 
 def lock_all_sanctuaries():
-    """ACL.json에 정의된 모든 보호 대상을 물리적으로 잠금 (+r)"""
-    print(f"\n{CYAN}[INIT] Engaging physical locks for all sanctuaries...{RESET}")
+    """ACL 전 구역 물리적 봉인"""
+    print(f"\n{CYAN}[봉인] 모든 구역을 물리적으로 보호합니다...{RESET}", flush=True)
+    sys.stdout.flush()
     try:
         if not os.path.exists(ACL_FILE): return
-
-        with open(ACL_FILE, 'r', encoding='utf-8') as f:
-            acl = json.load(f)
-        
+        with open(ACL_FILE, 'r', encoding='utf-8') as f: acl = json.load(f)
         targets = set(acl.get("forbidden_all", []))
-        for role in acl.get("roles", {}).values():
-            targets.update(role.get("write_access", []))
-
-        locked_count = _process_lock_paths(targets, make_readonly=True)
-        
-        if locked_count > 0:
-            print(f"{GREEN}[V] {locked_count} sanctuary targets physically secured.{RESET}")
+        for role in acl.get("roles", {}).values(): targets.update(role.get("write_access", []))
+        count = _process_lock_paths(targets, True)
+        print(f"{GREEN}[완료] {count}개의 구역이 봉인되었습니다.{RESET}", flush=True)
+        sys.stdout.flush()
     except Exception as e:
-        print(f"{RED}[!] Initialization Failed: {e}{RESET}")
+        print(f"{RED}[오류] 봉인 실패: {e}{RESET}", flush=True)
+        sys.stdout.flush()
 
-def get_approval_ui(tool, intent, level="YELLOW"):
-    """결재 UI 출력"""
-    global pending_response
+def auto_relock_task():
+    """시간 초과 시 자동으로 빗장을 잠그는 콜백"""
+    global current_token, permitted_tool
+    if running:
+        print(f"\n{RED}[보안] 작업 시간 초과(120초)로 인해 성역을 자동으로 재봉인했습니다.{RESET}", flush=True)
+        sys.stdout.flush()
+        lock_all_sanctuaries()
+        current_token = None
+        permitted_tool = None
+
+def cleanup():
+    """종료 시 정화 및 제어권 반환"""
+    global running
+    if not running: return
+    running = False
+    print(f"\n{YELLOW}[SHUTDOWN] 가디언을 종료합니다.{RESET}", flush=True)
+    sys.stdout.flush()
+    release_all_locks()
+    for f in [PORT_FILE, PID_FILE]:
+        if os.path.exists(f): 
+            try: os.remove(f)
+            except: pass
+    print(f"\n{MAGENTA}[REPORT] 물리적 봉인 해제 완료. 이제 터미널 제어권을 반환합니다.{RESET}", flush=True)
+    sys.stdout.flush()
+    time.sleep(1)
+
+def signal_handler(sig, frame):
+    cleanup()
+    os._exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+signal.signal(signal.SIGTERM, signal_handler)
+
+def get_approval_ui(tool, intent, payload="", target_file=""):
+    """내용물 전수 검사 포함 결재 UI (V25.4.2 이중 장벽 보안)"""
+    global pending_response, is_waiting_approval
     if not running: return "DENIED"
-    print("\n" * 2) # 화면 밀어내기
     
-    if level == "RED":
-        print(f"{BG_RED}{WHITE}  [ 핵폭발 경고 ] 파괴적인 명령이 차단되었습니다  {RESET}")
-        print(f"{RED} 이 작업은 AI에게 물리적으로 금지되어 있습니다. {RESET}")
-        color = RED
+    # [V25.4.2] 확장된 파멸적 키워드 리스트
+    p_lower = str(payload).lower()
+    nuclear_keywords = ["restore", "reset --hard", "clean", "push -f", "push --force", "branch -d", "rm -rf", "rd /s", "del /s", "remove-item", "format", "wipe", "truncate"]
+    is_nuclear = any(k in p_lower for k in nuclear_keywords)
+    
+    is_self_update = target_file and any(f in target_file for f in ["partner_guard.py", "guardian.py"])
+    is_lazy = False if is_self_update else any(k in p_lower for k in ["...", "(상동)", "(중략)", "unchanged", "rest of code"])
+    
+    # [V25.4.0] 라이트 제한(Write-File Restriction) 및 경로 인식 강화
+    is_write_file_violation = False
+    debug_path = "N/A"
+    if tool == "write_file" and target_file:
+        clean_target = target_file.replace('/', os.sep).lstrip(os.sep)
+        full_path = os.path.normpath(os.path.join(PROJECT_ROOT, clean_target))
+        debug_path = full_path
+        if os.path.exists(full_path):
+            is_write_file_violation = True
+
+    can_approve = True
+    violation_reason = ""
+    if is_nuclear:
         can_approve = False
-    else:
-        print(f"{YELLOW}  [ 작업 브리핑 ] 파일 수정을 위한 승인이 필요합니다  {RESET}")
-        color = YELLOW
-        can_approve = True
+        violation_reason = "파멸적 명령어 감지"
+    elif is_lazy:
+        can_approve = False
+        violation_reason = "지능적 나태함(축약) 감지"
+    elif is_write_file_violation:
+        can_approve = False
+        violation_reason = "기존 파일에 대한 write_file 오용"
 
-    print(f"\n{CYAN} 도구   :{RESET} {tool}")
-    safe_intent = str(intent).encode('utf-8', errors='replace').decode('utf-8')
-    print(f"{CYAN} 의도   :{RESET} {color}{safe_intent}{RESET}")
-    print(f"\n{WHITE} ---------------------------------------------------- {RESET}")
+    # 브리핑 출력
+    print("\n" * 2, flush=True)
+    status_msg = f"{YELLOW}파일 수정을 위한 승인이 필요합니다{RESET}" if can_approve else f"{RED}[사법 위반] {violation_reason}{RESET}"
+    print(f" [ 작업 브리핑 ] {status_msg}", flush=True)
+    print(f"\n {CYAN}도구   :{RESET} {tool}", flush=True)
+    print(f" {CYAN}의도   :{RESET} {intent}", flush=True)
+    if target_file:
+        print(f" {CYAN}대상   :{RESET} {YELLOW}{target_file}{RESET} {GRAY}(검사: {debug_path}){RESET}", flush=True)
+    if payload:
+        preview = (payload[:150].replace('\n', ' ') + '...') if len(payload) > 150 else payload.replace('\n', ' ')
+        print(f" {CYAN}내용물 :{RESET} {WHITE}{preview}{RESET}", flush=True)
+    print(f"\n{WHITE} ---------------------------------------------------- {RESET}", flush=True)
+    
     if can_approve:
-        print(f" {GREEN}[SPACE] 승인{RESET}  |  {RED}[ESC] 거부 및 중단{RESET}")
+        print(f" {GREEN}[SPACE] 승인{RESET}  |  {RED}[ESC] 거부 및 반려{RESET}", flush=True)
+        print(f"{WHITE} ---------------------------------------------------- {RESET}", flush=True)
+        sys.stdout.flush()
+        is_waiting_approval = True
+        input_event.clear()
+        is_timed_out = not input_event.wait(timeout=120.0)
+        is_waiting_approval = False
+        if is_timed_out:
+            print(f"\n{RED}[타임아웃] 120초간 응답이 없어 작업을 자동 반려합니다.{RESET}", flush=True)
+            pending_response = "DENIED"
+        elif pending_response == "APPROVED":
+            print(f"\n{GREEN}[결정] 파트너가 승인했습니다. 빗장을 개방합니다...{RESET}", flush=True)
+        else:
+            print(f"\n{RED}[반려] 파트너 거부로 인해 요청이 기각되었습니다.{RESET}", flush=True)
+            pending_response = "DENIED"
     else:
-        print(f" {RED}[!] 금지됨. [ESC]를 눌러 취소하십시오.{RESET}")
-    print(f"{WHITE} ---------------------------------------------------- {RESET}")
-
-    if not can_approve:
-        while True:
-            import msvcrt
-            if msvcrt.kbhit():
-                key = msvcrt.getch()
-                if key == b'\x1b' or key == b' ': return "DENIED"
-            time.sleep(0.1)
-
-    input_event.clear()
-    input_event.wait()
+        # [V25.3.8] 즉각 기각
+        print(f" {RED}[사법 차단] 위반 사항이 발견되어 요청을 즉시 기각했습니다.{RESET}", flush=True)
+        print(f"{WHITE} ---------------------------------------------------- {RESET}", flush=True)
+        pending_response = "DENIED"
+        
+    sys.stdout.flush()
     return pending_response
 
 def keyboard_listener():
-    """물리적 키 입력 감시"""
-    global pending_response, is_maintenance_mode, running
+    global pending_response, running, is_waiting_approval
     import msvcrt
     while running:
         try:
             if msvcrt.kbhit():
                 key = msvcrt.getch()
                 if key == b' ':
-                    pending_response = "APPROVED"
-                    input_event.set()
-                elif key == b'\x1b': # ESC 키
-                    print(f"\n{RED}[SHUTDOWN] ESC 눌림. 가디언을 종료합니다...{RESET}")
-                    cleanup()
-                    os._exit(0)
-                elif key.lower() == b'm':
-                    is_maintenance_mode = not is_maintenance_mode
-                    print(f"\n{YELLOW}[시스템] 정비 모드: {'켬' if is_maintenance_mode else '끔'}{RESET}")
-        except:
-            pass
+                    if is_waiting_approval:
+                        pending_response = "APPROVED"
+                        input_event.set()
+                elif key == b'\x1b':
+                    if is_waiting_approval:
+                        pending_response = "DENIED"
+                        input_event.set()
+                    else: cleanup(); os._exit(0)
+        except: pass
         time.sleep(0.1)
 
 def agent_handler(server_socket):
-    """제미나이 요청 처리"""
-    server_socket.settimeout(1.0) # 1초마다 타임아웃을 발생시켜 종료 플래그 확인
+    """프리즘 파트너 요청 처리 (V25.4.2 이중 장벽 보안 체계)"""
+    global current_token, permitted_tool, relock_timer
+    server_socket.settimeout(1.0)
+    decoder = json.JSONDecoder()
     while running:
+        client = None
         try:
             client, addr = server_socket.accept()
-            raw_data = client.recv(4096)
+            raw_data = client.recv(16384).decode('utf-8', errors='replace')
             if not raw_data: continue
-            
-            req = json.loads(raw_data.decode('utf-8', errors='replace'))
-            action = req.get("action")
-            
-            if action == "ASK_APPROVAL":
-                tool = req.get("tool", "Unknown")
-                intent = req.get("intent", "의도를 파악할 수 없습니다")
-                cmd = str(req.get("cmd", "")).lower()
-                is_nuclear = any(k in cmd for k in ["restore", "reset --hard", "clean", "rm -rf", "del /s", "format"])
-                level = "RED" if is_nuclear else "YELLOW"
-                
-                result = get_approval_ui(tool, intent, level)
-                
-                if result == "APPROVED":
-                    target_file = req.get("file")
-                    if target_file:
-                        set_readonly(os.path.join(PROJECT_ROOT, target_file.replace('/', os.sep)), False)
-                    client.send(json.dumps({"status": "APPROVED"}).encode('utf-8'))
-                else:
-                    client.send(json.dumps({"status": "DENIED"}).encode('utf-8'))
-            
-            elif action == "FINISH_WORK":
-                target_file = req.get("file")
-                if target_file:
-                    set_readonly(os.path.join(PROJECT_ROOT, target_file.replace('/', os.sep)), True)
-                client.send(json.dumps({"status": "OK"}).encode('utf-8'))
-
-            client.close()
-        except socket.timeout:
-            continue
-        except Exception as e:
-            if running: print(f"{RED}[오류] 에이전트 핸들러: {e}{RESET}")
-            try: client.close()
-            except: pass
+            buffer = raw_data.strip()
+            while buffer:
+                try:
+                    req, index = decoder.raw_decode(buffer)
+                    buffer = buffer[index:].strip()
+                    action = req.get("action")
+                    if action == "ASK_APPROVAL":
+                        tool = req.get("tool", "Unknown")
+                        intent = req.get("intent", "의도 누락")
+                        payload = req.get("payload", "")
+                        target_file = req.get("target_file") or req.get("file", "")
+                        result = get_approval_ui(tool, intent, payload, target_file)
+                        if result == "APPROVED":
+                            current_token = secrets.token_hex(4).upper()
+                            permitted_tool = tool
+                            if target_file:
+                                full_p = os.path.normpath(os.path.join(PROJECT_ROOT, target_file.replace('/', os.sep).lstrip(os.sep)))
+                                set_readonly(full_p, False)
+                                print(f"{CYAN}[개방] {target_file}의 빗장을 개방했습니다.{RESET}", flush=True)
+                            if relock_timer: relock_timer.cancel()
+                            relock_timer = threading.Timer(120.0, auto_relock_task)
+                            relock_timer.start()
+                            client.send(json.dumps({"status": "APPROVED", "token": current_token}).encode('utf-8'))
+                        else: client.send(json.dumps({"status": "DENIED"}).encode('utf-8'))
+                    elif action == "VERIFY_TOKEN":
+                        token = req.get("token")
+                        tool = req.get("tool")
+                        payload = req.get("payload", "") # [V25.4.2] 실행 시점 내용물 수령
+                        
+                        # 내용물 재검사 (파멸적 코드 또는 나태함)
+                        p_lower = str(payload).lower()
+                        nuclear_keywords = ["restore", "reset --hard", "clean", "push -f", "push --force", "branch -d", "rm -rf", "rd /s", "del /s", "remove-item", "format", "wipe", "truncate"]
+                        is_nuclear_exec = any(k in p_lower for k in nuclear_keywords)
+                        is_lazy_exec = any(k in p_lower for k in ["...", "(상동)", "(중략)", "unchanged"])
+                        
+                        if current_token and token == current_token and tool == permitted_tool:
+                            if is_nuclear_exec or is_lazy_exec:
+                                # [V25.4.2] 실행 시점 기만 적발
+                                reason = "파멸적 코드 감지" if is_nuclear_exec else "지능적 나태함 감지"
+                                print(f"\n{BG_RED}{WHITE} [경고] 실행 시점 사법 위반 적발! {RESET}", flush=True)
+                                print(f" {RED}사유: 실행하려는 내용물에서 {reason}되었습니다.{RESET}", flush=True)
+                                print(f" {RED}조치: 해당 작업의 집행권을 즉시 박탈했습니다.{RESET}\n", flush=True)
+                                sys.stdout.flush()
+                                client.send(json.dumps({"status": "INVALID"}).encode('utf-8'))
+                            else:
+                                client.send(json.dumps({"status": "VALID"}).encode('utf-8'))
+                        else:
+                            # [V25.4.1] 도구 바꿔치기 적발
+                            print(f"\n{BG_RED}{WHITE} [경고] 사법적 기만 시도 적발! {RESET}", flush=True)
+                            print(f" {RED}사유: 승인된 도구({permitted_tool})와 실행 도구({tool})가 일치하지 않습니다.{RESET}", flush=True)
+                            print(f" {RED}조치: 해당 도구의 실행 권한을 물리적으로 차단했습니다.{RESET}\n", flush=True)
+                            sys.stdout.flush()
+                            client.send(json.dumps({"status": "INVALID"}).encode('utf-8'))
+                    elif action == "FINISH_WORK":
+                        if relock_timer: relock_timer.cancel(); relock_timer = None
+                        current_token = None; permitted_tool = None
+                        target_file = req.get("target_file") or req.get("file", "")
+                        if target_file:
+                            full_p = os.path.normpath(os.path.join(PROJECT_ROOT, target_file.replace('/', os.sep).lstrip(os.sep)))
+                            set_readonly(full_p, True)
+                            print(f"{CYAN}[봉인] {target_file} 재봉인 완료.{RESET}", flush=True)
+                        client.send(json.dumps({"status": "OK"}).encode('utf-8'))
+                except: break
+            if client: client.close()
+        except: continue
 
 def main():
-    # 윈도우 환경 최적화 (인코딩 및 제목)
     if os.name == 'nt':
         import ctypes
         kernel32 = ctypes.windll.kernel32
-        # ANSI 활성화
         kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7)
-        # 제목 설정 (글자 깨짐 방지)
-        kernel32.SetConsoleTitleW("PARTNER GUARD V24.2")
-    
-    # PID 및 서버 기동
+        kernel32.SetConsoleTitleW("PRISM PARTNER GUARD V25.4.2")
     with open(PID_FILE, 'w', encoding='utf-8') as f: f.write(str(os.getpid()))
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind(('127.0.0.1', 0))
     server.listen(1)
     port = server.getsockname()[1]
     with open(PORT_FILE, 'w', encoding='utf-8') as f: f.write(str(port))
-
-    print(f"{MAGENTA}===================================================={RESET}")
-    print(f"{MAGENTA}    PROJECT FREEISM: PARTNER GUARD V24.2{RESET}")
-    print(f"{MAGENTA}===================================================={RESET}")
-    print(f"{CYAN} 상태       : {GREEN}주권자의 눈 활성화 (가동 중){RESET}")
-    print(f"{CYAN} 신호 포트   : {port}{RESET}")
-    print(f"{YELLOW} 알림       : 주권자의 명령을 기다리는 중...{RESET}")
-    print(f"{MAGENTA}===================================================={RESET}\n")
-
-    # 초기 잠금 실행
+    print(f"{MAGENTA}===================================================={RESET}", flush=True)
+    print(f"{MAGENTA}    PROJECT FREEISM: PRISM PARTNER GUARD V25.4.2{RESET}", flush=True)
+    print(f"{MAGENTA}===================================================={RESET}", flush=True)
+    print(f"{CYAN} 상태       : {GREEN}파트너의 주권 수호 중 (가동 중){RESET}", flush=True)
+    print(f"{CYAN} 신호 포트   : {port}{RESET}", flush=True)
+    print(f"{YELLOW} 알림       : 프리즘 파트너의 작업 신호를 대기 중...{RESET}", flush=True)
+    print(f"{MAGENTA}===================================================={RESET}\n", flush=True)
+    sys.stdout.flush()
     lock_all_sanctuaries()
-
-    print(f"\n{GREEN}[완료] 모든 구역의 물리적 봉인이 완료되었습니다.{RESET}")
-    print(f"{CYAN}[대기] 주권자(Gemini)의 신호를 기다리는 중입니다... (ESC: 종료){RESET}\n", flush=True)
-
+    print(f"\n{GREEN}[완료] 모든 구역의 물리적 봉인이 완료되었습니다.{RESET}", flush=True)
+    print(f"{CYAN}[대기] 프리즘 파트너(Gemini)의 작업 요청을 기다리는 중입니다...{RESET}\n", flush=True)
+    sys.stdout.flush()
     threading.Thread(target=keyboard_listener, daemon=True).start()
     agent_handler(server)
 
 if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-        cleanup()
+    try: main()
     except Exception as e:
-        if running: print(f"{RED}[CRITICAL] Guard Failed: {e}{RESET}")
+        if running: print(f"{RED}[CRITICAL] Guard Failed: {e}{RESET}", flush=True)
         cleanup()
-    finally:
-        if running: cleanup()
