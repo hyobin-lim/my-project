@@ -62,11 +62,12 @@
     }
   },
   "forbidden_all": [
-    "./",
-    "기록_보관소/",
-    "AI_CORE/CORE_PROTOCOL.md",
-    "AI_CORE/GUARDIAN.md",
-    ".git/",
+    "dashboard/src/components/",
+    "dashboard/src/pages/",
+    "web/src/components/",
+    "web/src/pages/",
+    "프로젝트_기록/",
+    "AI_CORE/",
     ".env",
     ".gemini/",
     "*.bat",

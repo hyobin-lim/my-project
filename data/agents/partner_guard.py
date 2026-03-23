@@ -48,24 +48,40 @@ def set_readonly(path, make_readonly):
     except: return False
 
 def _process_lock_paths(paths, make_readonly):
-    """경로 잠금/해제 처리 (성능 최적화 버전)"""
+    """경로 잠금/해제 처리 (진행률 표시 및 재귀적 스캔)"""
     processed_count = 0
     ignore_dirs = set(['node_modules', '.git', '.venv', '__pycache__', 'dist', 'build', '.next', 'out'])
+    micro_opening_exts = ['.pid', '.txt']
     
+    all_files = []
     for target in paths:
-        clean_target = target.strip().replace('/', os.sep)
+        clean_target = target.strip().replace('/', os.sep).lstrip(os.sep)
         full_p = os.path.normpath(os.path.join(PROJECT_ROOT, clean_target))
+        if any(full_p.endswith(ext) for ext in micro_opening_exts): continue
         
-        if '*' in target or '?' in target:
-            for p in glob.glob(full_p, recursive=True):
-                if any(ig in p for ig in ignore_dirs): continue
-                if p.endswith('.pid') or p.endswith('.txt'): continue
-                if set_readonly(p, make_readonly): processed_count += 1
+        if os.path.isdir(full_p):
+            for root, dirs, files in os.walk(full_p):
+                dirs[:] = [d for d in dirs if d not in ignore_dirs]
+                for file in files:
+                    if any(file.endswith(ext) for ext in micro_opening_exts): continue
+                    all_files.append(os.path.join(root, file))
         elif os.path.exists(full_p):
-            if any(ig in full_p for ig in ignore_dirs): continue
-            if full_p.endswith('.pid') or full_p.endswith('.txt'): continue
-            if set_readonly(full_p, make_readonly): processed_count += 1
+            all_files.append(full_p)
+
+    total = len(all_files)
+    if total == 0: return 0
+
+    for i, file_path in enumerate(all_files):
+        try:
+            if set_readonly(file_path, make_readonly):
+                processed_count += 1
+            if (i + 1) % max(1, total // 10) == 0 or (i + 1) == total:
+                percent = int(((i + 1) / total) * 100)
+                status = "봉인" if make_readonly else "해방"
+                print(f"\r{CYAN}[{status}] {percent}% 완료 ({i + 1}/{total})...{RESET}", end="", flush=True)
+        except: continue
             
+    print() # 줄바꿈
     return processed_count
 
 def release_all_locks():
