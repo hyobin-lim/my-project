@@ -1,0 +1,7 @@
+{
+  "action": "ASK_APPROVAL",
+  "tool": "replace",
+  "intent": "[V31.0] 실무자 가디언 신경계 이전 및 타임아웃(300s) 상향 수술",
+  "target_file": "data/agents/practitioner/guardian.py",
+  "payload": "DATA_DIR 경로 수정 및 타임아웃 300.0 설정"
+}

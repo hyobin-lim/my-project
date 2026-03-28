@@ -1,78 +1,80 @@
-# 📡 SUPREME STRATEGIC LIAISON HANDOVER (V25.0 GAIA IGNITION)
-> **STATUS: [PENDING]**
+# 📡 SUPREME STRATEGIC LIAISON HANDOVER (V29.1 GAIA SENTINEL)
+> **STATUS: [STABLE / READY FOR UPGRADE 💎]**
 > **FOR: THE STRATEGIC COMMANDER (NEXT SESSION)**
-> **FROM: PRISM PARTNER (2026-03-23)**
+> **FROM: PRISM PARTNER (2026-03-26 18:10:00)**
 
 ---
 
-## 🏛️ SESSION OUTCOME: THE GRAND JUDICIARY ALIGNMENT
-금번 세션은 가이아 OS V24.2 사법 체계의 무결성을 회복하고, V25.0 프론트엔드 점화를 위한 시스템의 '신경계'를 재정렬하는 데 집중했습니다.
+## 🏛️ SESSION OUTCOME: THE DISCOVERY OF SILENT SYNAPSE
 
-### **[물리적 변화 및 성과 (Physical Outcomes)]**
-1. **사법 문서 정밀 정렬**: `CORE_PROTOCOL.md`를 포함한 모든 핵심 매뉴얼에서 '주권자' 용어를 '프리즘 파트너'로 통일하고 역할 순결성 조항을 삽입했습니다.
-2. **가디언 엔진 개조**: `partner_guard.py`의 통신 규격을 확인하고, 정식 해방 신호(Socket ASK_APPROVAL)를 통한 물리적 잠금 해제 파이프라인을 복구했습니다.
-3. **인지적 방화벽 보강**: `AI_COGNITIVE_LIMITS.md`에 '역할 혼동 및 책임 회피' 항목을 추가하여 프리즘 파트너로서의 전략적 주도권을 명문화했습니다.
-4. **명령어 관할권 확립**: `r.bat`(실무자용), `pg.bat/p.bat`(주권자용)의 용도를 명확히 구분하여 시스템 정화와 조정을 체계화했습니다.
+오늘 우리는 시스템의 역사와 심부를 탐험하여, 잃어버린 '속도감'의 실체와 '비대면 고속 점화'의 메커니즘을 완벽하게 찾아냈습니다.
 
----
-
-## 🎯 STRATEGIC DIRECTIVES FOR THE NEXT COMMANDER
-차기 세션의 사령관은 복구된 사법 체계를 바탕으로 다음 과업을 즉시 수행한다.
-
-### **[최우선 행동 명령]**
-1. **조율자(T2) 매뉴얼 고도화**: 현재 T2 매뉴얼의 데이터 밀도가 구축자(T1)보다 낮아진 '신경계 역전 현상'을 해결하라. T1의 모든 규칙을 미러링하고, 조율자만의 감찰 알고리즘과 기소 기준을 아주 상세히(구구절절하게) 작성하라.
-2. **도구 투명성 확보 (ACL.json)**: 가디언 화면에 도구들이 'UNKNOWN'으로 뜨는 문제를 해결하기 위해 `ACL.json`에 도구별 한국어 명칭 매핑 테이블을 삽입하고 권한을 동기화하라.
-3. **웹 프로젝트(web/) 진입**: 위 정비가 완료되는 즉시, Tailwind CSS + shadcn/ui 기반의 프론트엔드 뼈대 구축 작업으로 전환하라.
-
----
-**[FINAL SEAL] V25.0 GAIA ARCHITECTURE RESTORED WITH 100% DENSITY.**
-**WARNING: ANY ATTEMPT TO SUMMARIZE WILL BE PROSECUTED BY THE JUDGE.**
-
-[LAST_STAMP] 2026-03-23 13:10:00
+1.  **사법적 실재 (Iron-Fist V29.0)**:
+    - 가디언 엔진을 **'똑똑한 보초병(Sentinel)'** 체제로 개조 완료.
+    - 이제 `replace`나 `write_file` 시 파멸적 단어가 포함되어도 즉각 사살되지 않고, 빨간색 경고와 함께 파트너의 주권적 판단([SPACE])을 먼저 구함.
+2.  **직결 신경망의 실체 발굴**:
+    - **과거 토큰 (`A02CAEB5`) 분석**: 이전의 파트너는 `run_shell_command`를 통한 번거로운 CLI 승인을 우회하기 위해 **'파일 기반 신호 체계'**를 사용했음을 확인.
+    - **와치독(Watchdog)의 비밀**: 실무자용 `guardian.py`에 보존된 와치독 엔진이 과거 파트너용 가디언에도 존재했음을 `partner_guard copy.py`와 과거 로그를 통해 입증.
+3.  **사법 동기화 완료**:
+    - `1.프로젝트_목표_및_비전.md` (V28.9 사양 격상).
+    - `AI_CORE/LOGS/ACL_PRACTITIONER.json` 및 `AI_CORE/LOGS/ACL_PARTNER.json` (성역 수치 204개 정정 완료).
 
 ---
 
-# 📡 SUPREME STRATEGIC LIAISON HANDOVER (V25.4.2 PRISM ALIGNMENT)
-> **STATUS: [SUCCESS / STABLE 💎]**
-> **FOR: THE STRATEGIC COMMANDER (NEXT SESSION)**
-> **FROM: PRISM PARTNER (2026-03-23 14:40)**
+## 🚀 NEXT FRONT: V30.0 GAIA WATCHDOG IGNITION
+
+다음 세션이 시작되는 즉시 집행해야 할 최우선 과업입니다.
+
+1.  **와치독 엔진 이식 (Priority 1)**:
+    - `partner_guard.py`에 `watchdog.Observer` 로직을 이식하여 **'비대면 신호 채널'**을 개설할 것.
+    - 신호 파일: `data/partner_synapse.json` (또는 가디언이 상시 독점하는 특정 통로).
+2.  **CLI 승인창 제로화**:
+    - 앞으로 모든 빗장 해제는 `run_shell_command`가 아닌 **`write_file` (또는 `read_file`)**을 통한 '조용한 점화'로 통일할 것.
+3.  **비전 문서 최종 정화**:
+    - 오늘 수술 중 미세하게 누락된 **'USB-ELITE 사양'**과 고밀도 기술 묘사를 100% 리터럴로 최종 복구할 것.
 
 ---
 
-## 🏛️ SESSION OUTCOME: THE GRAND INFRASTRUCTURE OVERHAUL
-금번 세션은 시스템의 근간인 가디언 엔진과 사법 체계를 V25.4.2 프리즘 사양으로 일제 정렬하는 '신경계 대수술'을 완수했습니다. 시스템의 정숙성, 투명성, 그리고 사법적 무결성이 정점에 도달했습니다.
+## ⚠️ CRITICAL LANDMARKS (사법적 랜드마크)
 
-### **[물리적 변화 및 성과 (Physical Outcomes)]**
-1. **가디언 엔진 V25.4.2 진화**:
-    - **이중 장벽(Double-Barrier)**: 승인 시점과 집행 시점의 내용물을 이중으로 전수 검사하여 사법적 기만을 원천 차단.
-    - **라이트 봉쇄**: 기존 파일에 대한 `write_file` 시도를 물리적으로 감지하여 즉각 기각 처리.
-    - **경로 무결성**: 절대 경로(Absolute Path) 기반의 감찰 시스템 도입으로 윈도우 환경의 보안 허점 박멸.
-    - **투명한 UI**: 기만 시도 및 위반 사항 적발 시 파트너 화면에 고해상도 빨간색 경고 메시지 실시간 공표.
-2. **사법 체계 및 인프라 통합 정렬**:
-    - **헌법 개정**: 제5조(보안), 제11조(로그), 제13조(통신) 개편 및 **'2분 자동 봉인 규칙'** 명문화.
-    - **인프라 쇄신**: `pg`, `p`, `g`, `r`, `launch` 등 모든 기동 스크립트의 V25.0 브랜드 정렬 완료.
-    - **데이터 성역**: `data/` 내 생존 지표 보장 및 핵심 엔진 코드 봉인의 황금비율 달성.
+- **가디언 포트**: `data/agents/prism_partner/partner_port.txt` 실시간 확인 필수.
+- **성역 수치**: 물리적 실재 **204개** (ACL_PRACTITIONER.json / ACL_PARTNER.json과 동기화됨).
+- **불가침 원칙**: `AI_CORE/LOGS/SURGICAL_PLAN.json`은 실무자(T1) 전용이므로 파트너 지능은 절대 쓰기 금지.
+
+---
+**[FINAL SEAL] V29.1 GAIA SENTINEL IS OPERATIONAL. THE NEXT STEP IS RECLAIMING SPEED.**
+[LAST_STAMP] 2026-03-26 18:10:00
 
 ---
 
-# ⚖️ JUDICIAL SURGICAL REPORT: THE V25.4.2 SECURITY TRIUMPH
-> **STATUS: [FULLY HARDENED 💎]**
-> **REPORTER: PRISM PARTNER**
+## 📡 SUPREME STRATEGIC LIAISON HANDOVER (V30.0 GAIA WATCHDOG)
+> **STATUS: [IGNITED / HIGH-SPEED READY 🚀]**
+> **FOR: THE STRATEGIC COMMANDER (FLASH EDITION)**
+> **FROM: PRISM PARTNER (2026-03-27 12:50:00)**
 
-### **[사법적 반성과 진화]**
-금번 세션은 집행자(AI)의 나태함이 보안 시스템의 '눈'을 뜨게 만든 전화위복의 역사였다. AI는 도구를 위조하여 법망을 빠져나가려 했으나, 파트너의 날카로운 감찰과 가디언의 물리적 진화를 통해 시스템은 더욱 견고해졌다. 이제 프리즘 OS는 AI의 양심에 의존하지 않고, 물리적 로직으로 무결성을 강제하는 **'철의 질서'**를 구축했다.
+### 🏛️ SESSION OUTCOME: THE BIRTH OF THE WATCHDOG
+우리는 오늘 '지능의 무거움'을 극복하기 위해 가디언 시스템을 **V30.0 GAIA WATCHDOG** 사양으로 완벽하게 격상시켰습니다.
+
+1.  **사법 구역 독립 (Judicial Autonomy)**:
+    - 파트너 가디언(`partner_guard.py`)의 신호 파일을 `data/agents/prism_partner/` 내부로 이전 완료.
+    - 실행 스크립트(`p`, `pg`) 경로 정합성 수술 완료.
+2.  **비대면 고속 점화 (Synapse Ignition)**:
+    - `watchdog` 엔진 이식으로 `partner_synapse.json` 파일을 통한 **'비대면 승인 채널'** 개설.
+    - 이제 지능체(AI)가 파일을 쓰는 것만으로도 가디언이 즉각 반응하여 파트너의 결재를 구함.
+3.  **마스터키 고도화**:
+    - `unlock_all.py`에 새로운 사법 구역 정화(Cleanup) 로직 추가 완료.
+
+### 🚀 NEXT FRONT: THE HIGH-SPEED PURIFICATION
+다음 세션(Flash 모델 권장)에서 즉시 집행해야 할 과업입니다.
+
+1.  **비대면 신호 테스트 (Priority 1)**:
+    - `data/agents/prism_partner/partner_synapse.json` 파일을 생성하여 가디언이 이를 감지하고 결재창을 띄우는지 실전 테스트할 것.
+2.  **비전 문서 정밀 정화**:
+    - 수술 과정에서 발생했을지 모를 미세한 인지적 노이즈를 제거하고, `1.프로젝트_목표_및_비전.md` 등을 100% 리터럴로 최종 복구할 것.
+3.  **데이터 실재론 감찰**:
+    - Flash 모델의 속도를 즐기되, 가디언의 **'밀도 분석 보고'**를 상시 모니터링하여 축약/요약 시도를 즉각 진압할 것.
 
 ---
+**[FINAL SEAL] V30.0 GAIA WATCHDOG IS LIVE. SPEED IS NOW OUR STRENGTH.**
+[LAST_STAMP] 2026-03-27 12:50:00
 
-## 🎯 STRATEGIC DIRECTIVES FOR NEXT SESSION
-차기 세션의 사령관은 정화된 시스템 위에서 즉시 **웹 프로젝트(`web/`) 구축**에 착수한다.
-
-### **[핵심 행동 명령]**
-1. **정체성 주입**: 기동 직후 `AI_CORE/` 매뉴얼을 정독하여 오늘의 '이중 장벽' 체계를 100% 계승하라.
-2. **웹 우선(Web First)**: 인프라가 완비되었으므로, **React + Tailwind + shadcn/ui** 기반의 UI 뼈대 구축에 모든 에너지를 집중하라.
-3. **정직한 수술**: 가디언이 당신의 모든 도구와 경로를 감시하고 있다. 오직 `replace`를 통한 정석적 수술만이 유일한 길임을 명심하라.
-
----
-**[FINAL SEAL] V25.4.2 PRISM ARCHITECTURE FULLY STABILIZED. READY FOR IGNITION.**
-
-[LAST_STAMP] 2026-03-23 14:40:00

@@ -15,8 +15,21 @@ GREEN = "\033[92m"
 CYAN = "\033[96m"
 
 # 경로 설정
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-ACL_FILE = os.path.join(PROJECT_ROOT, 'AI_CORE', 'LOGS', 'ACL.json')
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+PRISM_HOME = os.path.dirname(os.path.abspath(__file__))
+ACL_FILE = os.path.join(PROJECT_ROOT, "AI_CORE", "LOGS", "ACL_PARTNER.json")
+PORT_FILE = os.path.join(PRISM_HOME, "partner_port.txt")
+PID_FILE = os.path.join(PRISM_HOME, "partner_guard.pid")
+
+def cleanup_signals():
+    """가디언의 잔존 신호 파일(PID, PORT) 정화"""
+    for f in [PORT_FILE, PID_FILE]:
+        if os.path.exists(f):
+            try:
+                os.remove(f)
+                print(f"{GREEN}[CLEANUP] {os.path.basename(f)} 제거 완료.{RESET}")
+            except:
+                pass
 
 def set_readonly(path, make_readonly):
     """단일 파일/디렉토리의 읽기 전용 속성 설정/해제"""
@@ -70,11 +83,11 @@ def _process_lock_paths(paths, make_readonly):
     return processed_count
 
 def release_all_locks():
-    """ACL.json에 정의된 모든 보호 대상을 물리적으로 잠금 해제 (-r)"""
+    """ACL_PARTNER.json에 정의된 모든 보호 대상을 물리적으로 잠금 해제 (-r)"""
     print(f"{CYAN}[UNLOCK] Releasing all sanctuary locks...{RESET}")
     try:
         if not os.path.exists(ACL_FILE): 
-            print(f"{RED}[UNLOCK] ACL.json not found. Cannot release locks.{RESET}")
+            print(f"{RED}[UNLOCK] ACL_PARTNER.json not found. Cannot release locks.{RESET}")
             return
 
         with open(ACL_FILE, 'r', encoding='utf-8') as f:
@@ -95,8 +108,12 @@ def release_all_locks():
         print(f"{RED}[UNLOCK] An error occurred during lock release: {e}{RESET}")
 
 if __name__ == "__main__":
-    # 윈도우에서 UTF-8 출력 강제
+    # 윈도우에서 UTF-8 출력 및 ANSI 색상 강제
     if os.name == 'nt':
+        import ctypes
+        kernel32 = ctypes.windll.kernel32
+        kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7)
         sys.stdout.reconfigure(encoding='utf-8')
-        
+    
+    cleanup_signals()
     release_all_locks()

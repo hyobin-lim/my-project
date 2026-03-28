@@ -1,6 +1,6 @@
 {
-  "version": "V28.9 GAIA IRON-FIST",
-  "last_updated": "2026-03-26 12:45:00",
+  "version": "V30.0 GAIA WATCHDOG",
+  "last_updated": "2026-03-27 13:45:00",
   "system_gate": "LOCKED",
   "roles": {
     "PRISM_PARTNER": {
@@ -31,37 +31,6 @@
         "activate_skill"
       ],
       "description": "최상위 주권 파트너. 승인된 단일 도구 및 단일 파일만 일시 개방하는 '수술적 정밀도' 원칙을 준수함. 도구 자산 잠금(Tool Asset Lock) 체계 하에 동작함."
-    },
-    "T1_EXECUTOR": {
-      "role": "Builder",
-      "write_access": [
-        "./",
-        "AI_CORE/LOGS/SURGICAL_PLAN.json"
-      ],
-      "permitted_tools": [
-        "replace",
-        "read_file",
-        "list_directory",
-        "glob",
-        "grep_search",
-        "run_shell_command"
-      ],
-      "description": "실무 마스터 빌더. 모든 수정은 계획서 승인 하에 이루어지며, 감사 도구 수정은 금지됨."
-    },
-    "T2_COORDINATOR": {
-      "role": "Auditor",
-      "write_access": [
-        "AI_CORE/LOGS/AUDIT_REPORT.json",
-        "AI_CORE/LOGS/REVISION_LOG.json",
-        "AI_CORE/HANDOVER.md"
-      ],
-      "permitted_tools": [
-        "read_file",
-        "list_directory",
-        "glob",
-        "grep_search"
-      ],
-      "description": "사법 감사관. 기록 정합성을 검수하며 물리적 성역 수정 권한은 없음."
     }
   },
   "forbidden_all": [
@@ -98,8 +67,7 @@
       "pinpoint_unlocking": "Only the requested SINGLE FILE is unlocked per approval.",
       "breathing_holes_exemption": "Dynamic data files (.txt, .pid, .log) are legally exempt from physical lockdown.",
       "timeout_auto_relock": "All unlocked sanctuaries are force-locked after 300 seconds of inactivity.",
-      "judicial_cleanup": "Upon Guardian termination, all 204 sanctuaries defined in the role-specific ACL file(s) are precisely restored to the UNLOCKED state. (ACL_PRACTITIONER.json / ACL_PARTNER.json)",
-
+      "judicial_cleanup": "Upon Guardian termination, all sanctuaries defined in ACL_PARTNER are precisely restored to the UNLOCKED state."
     },
     "nuclear_commands": [
       "git restore",

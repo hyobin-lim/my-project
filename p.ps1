@@ -28,7 +28,7 @@ Write-Host "OK: Purge Complete. Starting Fresh." -ForegroundColor Green
 # --- 2. 프리즘 파트너 가디언 점화 (Prism Partner Guard using System Python) ---
 Write-Host "[2/3] Prism Partner Guard Ignition..." -ForegroundColor Cyan
 
-$guardScript = Join-Path $PROJECT_ROOT "data\agents\partner_guard.py"
+$guardScript = Join-Path $PROJECT_ROOT "data\agents\prism_partner\partner_guard.py"
 
 # 시스템 PATH의 파이썬을 직접 호출 (USB .venv 경로 문제 해결)
 Start-Process powershell -ArgumentList "-Command", "& { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8; `$Host.UI.RawUI.WindowTitle = 'PRISM PARTNER GUARD (V25.0)'; & python '$guardScript'; if (`$LASTEXITCODE -ne 0) { pause } }" -WindowStyle Normal

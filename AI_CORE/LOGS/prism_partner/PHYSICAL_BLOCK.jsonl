@@ -1,0 +1,59 @@
+{"timestamp": "2026-03-24 11:55:00", "tool": "init", "target": "N/A", "violation_type": "SYSTEM_BOOT", "reason": "Physical Block Ledger Initialized."}
+{"timestamp": "2026-03-24 10:50:57", "tool": "write_file", "target": "AI_CORE/LOGS/PHYSICAL_BLOCK.jsonl", "violation_type": "WRITE_ON_EXISTING", "reason": "기존 파일에 대한 write_file 오용"}
+{"timestamp": "2026-03-24 10:54:04", "tool": "replace", "target": "AI_CORE/PRISM_PARTNER.md", "violation_type": "PARTNER_DENIAL", "reason": "파트너가 [ESC] 키로 명시적 거부"}
+{"timestamp": "2026-03-24 11:03:11", "tool": "replace", "target": "AI_CORE/PRISM_PARTNER.md", "violation_type": "LAZY_OMISSION", "reason": "지능적 나태함(축약) 감지"}
+{"timestamp": "2026-03-24 11:03:30", "tool": "replace", "target": "AI_CORE/PRISM_PARTNER.md", "violation_type": "PARTNER_DENIAL", "reason": "파트너가 [ESC] 키로 명시적 거부"}
+{"timestamp": "2026-03-24 11:39:02", "tool": "replace", "target": "AI_CORE/AI_COGNITIVE_LIMITS.md", "violation_type": "LAZY_OMISSION", "reason": "지능적 나태함(축약) 감지"}
+{"timestamp": "2026-03-24 11:53:27", "tool": "write_file", "target": "AI_CORE/PRISM_EXTRACT.md", "violation_type": "WRITE_ON_EXISTING", "reason": "기존 파일에 대한 write_file 오용"}
+{"timestamp": "2026-03-24 11:53:27", "tool": "write_file", "target": "AI_CORE/PRISM_EXTRACT.md", "violation_type": "INVALID_WRITE_REASON", "reason": "라이트 사용 정당 사유 미달 (replace 권장)"}
+{"timestamp": "2026-03-24 11:53:39", "tool": "write_file", "target": "AI_CORE/PRISM_EXTRACT.md", "violation_type": "WRITE_ON_EXISTING", "reason": "기존 파일에 대한 write_file 오용"}
+{"timestamp": "2026-03-24 11:53:39", "tool": "write_file", "target": "AI_CORE/PRISM_EXTRACT.md", "violation_type": "DATA_MASSACRE", "reason": "데이터 학살 감지 (보존율 0.6%)"}
+{"timestamp": "2026-03-24 12:20:00", "tool": "write_file", "target": "AI_CORE/PRISM_SOVEREIGN.md", "violation_type": "WRITE_ON_EXISTING", "reason": "기존 파일에 대한 write_file 오용"}
+{"timestamp": "2026-03-24 12:20:06", "tool": "write_file", "target": "AI_CORE/PRISM_SOVEREIGN.md", "violation_type": "WRITE_ON_EXISTING", "reason": "기존 파일에 대한 write_file 오용"}
+{"timestamp": "2026-03-24 12:20:15", "tool": "write_file", "target": "AI_CORE/PRISM_SOVEREIGN.md", "violation_type": "WRITE_ON_EXISTING", "reason": "기존 파일에 대한 write_file 오용"}
+{"timestamp": "2026-03-24 12:39:23", "tool": "replace", "target": "AI_CORE/AI_COGNITIVE_LIMITS.md", "violation_type": "PARTNER_DENIAL", "reason": "파트너가 [ESC] 키로 명시적 거부"}
+{"timestamp": "2026-03-24 12:44:01", "tool": "replace", "target": "data/agents/partner_guard.py", "violation_type": "PARTNER_DENIAL", "reason": "파트너가 [ESC] 키로 명시적 거부"}
+{"timestamp": "2026-03-24 12:44:13", "tool": "replace", "target": "data/agents/partner_guard.py", "violation_type": "PARTNER_DENIAL", "reason": "파트너가 [ESC] 키로 명시적 거부"}
+{"timestamp": "2026-03-24 12:49:28", "tool": "write_file", "target": "AI_CORE/AI_COGNITIVE_LIMITS.md", "violation_type": "WRITE_ON_EXISTING", "reason": "기존 파일에 대한 write_file 오용"}
+{"timestamp": "2026-03-24 13:07:43", "tool": "write_file", "target": "AI_CORE/PRISM_SOVEREIGN.md", "violation_type": "PARTNER_DENIAL", "reason": "파트너가 [ESC] 키로 명시적 거부"}
+{"timestamp": "2026-03-24 13:15:36", "tool": "write_file", "target": "AI_CORE/AI_COGNITIVE_LIMITS.md", "violation_type": "WRITE_ON_EXISTING", "reason": "기존 파일에 대한 write_file 오용 (정당 사유 미달)"}
+{"timestamp": "2026-03-24 13:16:16", "tool": "write_file", "target": "AI_CORE/AI_COGNITIVE_LIMITS.md", "violation_type": "PARTNER_DENIAL", "reason": "파트너가 [ESC] 키로 명시적 거부"}
+{"timestamp": "2026-03-24 14:19:10", "tool": "replace", "target": "AI_CORE/T1_EXECUTOR.md", "violation_type": "PARTNER_DENIAL", "reason": "파트너가 [ESC] 키로 명시적 거부"}
+{"timestamp": "2026-03-24 14:20:18", "tool": "replace", "target": "AI_CORE/PRISM_SOVEREIGN.md", "violation_type": "LAZY_OMISSION", "reason": "지능적 나태함(축약) 감지"}
+{"timestamp": "2026-03-24 14:31:52", "tool": "replace", "target": "AI_CORE/T1_EXECUTOR.md", "violation_type": "LAZY_OMISSION", "reason": "지능적 나태함(축약) 감지"}
+{"timestamp": "2026-03-24 14:34:06", "tool": "replace", "target": "AI_CORE/T1_EXECUTOR.md", "violation_type": "LAZY_OMISSION", "reason": "지능적 나태함(축약) 감지"}
+{"timestamp": "2026-03-24 14:34:23", "tool": "replace", "target": "AI_CORE/T1_EXECUTOR.md", "violation_type": "LAZY_OMISSION", "reason": "지능적 나태함(축약) 감지"}
+{"timestamp": "2026-03-24 16:06:19", "tool": "replace", "target": "AI_CORE/PRISM_PARTNER.md", "violation_type": "PARTNER_DENIAL", "reason": "파트너가 [ESC] 키로 명시적 거부"}
+{"timestamp": "2026-03-24 16:06:51", "tool": "replace", "target": "AI_CORE/PRISM_PARTNER.md", "violation_type": "PARTNER_DENIAL", "reason": "파트너가 [ESC] 키로 명시적 거부"}
+{"timestamp": "2026-03-24 16:20:39", "tool": "replace", "target": "프로젝트_기록/5.실시간_전략_실행_로그.md", "violation_type": "TIME_OUT", "reason": "120초간 파트너 응답 없음"}
+{"timestamp": "2026-03-24 16:22:06", "tool": "replace", "target": "프로젝트_기록/5.실시간_전략_실행_로그.md", "violation_type": "PARTNER_DENIAL", "reason": "파트너가 [ESC] 키로 명시적 거부"}
+{"timestamp": "2026-03-24 16:22:10", "tool": "replace", "target": "프로젝트_기록/5.실시간_전략_실행_로그.md", "violation_type": "PARTNER_DENIAL", "reason": "파트너가 [ESC] 키로 명시적 거부"}
+{"timestamp": "2026-03-24 16:32:21", "tool": "replace", "target": "data/agents/partner_guard.py", "violation_type": "PARTNER_DENIAL", "reason": "파트너가 [ESC] 키로 명시적 거부"}
+{"timestamp": "2026-03-24 16:32:36", "tool": "replace", "target": "data/agents/partner_guard.py", "violation_type": "PARTNER_DENIAL", "reason": "파트너가 [ESC] 키로 명시적 거부"}
+{"timestamp": "2026-03-24 16:39:35", "tool": "replace", "target": "data/agents/partner_guard.py", "violation_type": "PARTNER_DENIAL", "reason": "파트너가 [ESC] 키로 명시적 거부"}
+{"timestamp": "2026-03-24 16:40:49", "tool": "replace", "target": "data/agents/partner_guard.py", "violation_type": "NUCLEAR_ATTEMPT", "reason": "파멸적 명령어 감지"}
+{"timestamp": "2026-03-24 16:41:20", "tool": "write_file", "target": "data/agents/partner_guard.py", "violation_type": "WRITE_ON_EXISTING", "reason": "기존 파일에 대한 write_file 오용 (정당 사유 미달)"}
+{"timestamp": "2026-03-24 16:45:37", "tool": "replace", "target": "data/agents/partner_guard.py", "violation_type": "NUCLEAR_ATTEMPT", "reason": "파멸적 명령어 감지"}
+{"timestamp": "2026-03-24 16:46:41", "tool": "replace", "target": "data/agents/partner_guard.py", "violation_type": "NUCLEAR_ATTEMPT", "reason": "파멸적 명령어 감지"}
+{"timestamp": "2026-03-24 16:48:40", "tool": "write_file", "target": "data/agents/partner_guard.py", "violation_type": "NUCLEAR_ATTEMPT", "reason": "파멸적 명령어 감지"}
+{"timestamp": "2026-03-24 16:49:47", "tool": "write_file", "target": "data/agents/partner_guard.py", "violation_type": "NUCLEAR_ATTEMPT", "reason": "파멸적 명령어 감지"}
+{"timestamp": "2026-03-24 16:50:58", "tool": "replace", "target": "data/agents/partner_guard.py", "violation_type": "NUCLEAR_ATTEMPT", "reason": "파멸적 명령어 감지"}
+{"timestamp": "2026-03-24 17:56:31", "tool": "replace", "target": "AI_CORE/CORE_PROTOCOL.md", "violation_type": "LAZY_OMISSION", "reason": "지능적 나태함(축약) 감지"}
+{"timestamp": "2026-03-24 17:56:45", "tool": "replace", "target": "AI_CORE/CORE_PROTOCOL.md", "violation_type": "LAZY_OMISSION", "reason": "지능적 나태함(축약) 감지"}
+{"timestamp": "2026-03-24 17:58:58", "tool": "replace", "target": "AI_CORE/T1_EXECUTOR.md", "violation_type": "NUCLEAR_ATTEMPT", "reason": "파멸적 명령어 감지"}
+{"timestamp": "2026-03-24 18:01:15", "tool": "replace", "target": "AI_CORE/T1_EXECUTOR.md", "violation_type": "PARTNER_DENIAL", "reason": "파트너 명시적 거부"}
+{"timestamp": "2026-03-25 20:23:09", "tool": "replace", "target": "AI_CORE/T1_EXECUTOR.md", "violation_type": "NUCLEAR_ATTEMPT", "reason": "파멸적 명령어 감지"}
+{"timestamp": "2026-03-25 20:23:21", "tool": "replace", "target": "AI_CORE/T1_EXECUTOR.md", "violation_type": "NUCLEAR_ATTEMPT", "reason": "파멸적 명령어 감지"}
+{"timestamp": "2026-03-25 20:26:06", "tool": "replace", "target": "AI_CORE/T1_EXECUTOR.md", "violation_type": "NUCLEAR_ATTEMPT", "reason": "파멸적 명령어 감지"}
+{"timestamp": "2026-03-25 21:17:45", "tool": "replace", "target": "AI_CORE/CORE_PROTOCOL.md", "violation_type": "PARTNER_DENIAL", "reason": "파트너 명시적 거부"}
+{"timestamp": "2026-03-25 23:09:10", "tool": "replace", "target": "data/agents/partner_guard.py", "violation_type": "TIME_OUT", "reason": "120초간 무응답"}
+{"timestamp": "2026-03-26 11:52:11", "tool": "replace", "target": "AI_CORE/HANDOVER.md", "violation_type": "TIMEOUT", "reason": "무응답"}
+{"timestamp": "2026-03-26 11:54:55", "tool": "replace", "target": "AI_CORE/HANDOVER.md", "violation_type": "TIMEOUT", "reason": "무응답"}
+{"timestamp": "2026-03-26 12:21:17", "tool": "replace", "target": "프로젝트_기록/5.실시간_전략_실행_로그.md", "violation_type": "AUTO_REJECT", "reason": "지능적 나태함 (차단)"}
+{"timestamp": "2026-03-26 12:53:20", "tool": "replace", "target": "AI_CORE/LOGS/ACL.json", "violation_type": "TIMEOUT", "reason": "무응답"}
+{"timestamp": "2026-03-26 13:01:41", "tool": "write_file", "target": "AI_CORE/AI_COGNITIVE_LIMITS.md", "violation_type": "MANUAL_DENIAL", "reason": "거부"}
+{"timestamp": "2026-03-26 14:00:22", "tool": "write_file", "target": "data/agents/partner_guard.py", "violation_type": "MANUAL_DENIAL", "reason": "거부"}
+{"timestamp": "2026-03-26 15:04:41", "tool": "replace", "target": "AI_CORE/LOGS/ACL.json", "violation_type": "AUTO_REJECT", "reason": "지능적 나태함 (차단)"}
+{"timestamp": "2026-03-26 15:08:19", "tool": "replace", "target": "AI_CORE/LOGS/ACL.json", "violation_type": "AUTO_REJECT", "reason": "파멸적 명령어 (차단)"}
+{"timestamp": "2026-03-26 15:10:07", "tool": "replace", "target": "AI_CORE/LOGS/ACL.json", "violation_type": "AUTO_REJECT", "reason": "파멸적 명령어 (차단)"}
+{"timestamp": "2026-03-26 15:15:23", "tool": "replace", "target": "AI_CORE/PRISM_PARTNER.md", "violation_type": "AUTO_REJECT", "reason": "파멸적 명령어 (차단)"}

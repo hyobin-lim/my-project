@@ -7,7 +7,7 @@ $PROJECT_ROOT = $PSScriptRoot
 if (-not $PROJECT_ROOT) { $PROJECT_ROOT = (Get-Location).Path }
 Set-Location $PROJECT_ROOT
 
-$guardScript = Join-Path $PROJECT_ROOT "data\agents\partner_guard.py"
+$guardScript = Join-Path $PROJECT_ROOT "data\agents\prism_partner\partner_guard.py"
 
 Write-Host "`n[IGNITION] Waking up the Prism Partner Guard..." -ForegroundColor Cyan
 
